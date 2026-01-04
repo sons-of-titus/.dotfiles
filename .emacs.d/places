@@ -1,0 +1,48 @@
+;;; -*- coding: utf-8; mode: lisp-data -*-
+(("/Users/mohamedabdellahi/Projects/learning/c++/xmake/hello/.vscode/launch.json" . 160)
+ ("/Users/mohamedabdellahi/Projects/learning/c++/xmake/hello/src/main.cpp" . 269)
+ ("/Users/mohamedabdellahi/.emacs.d/.cache/treemacs-persist" . 53)
+ ("/Users/mohamedabdellahi/Projects/learning/c++/LearnCPP/B-Backtracking/TheKnight’stourproblem.cpp"
+  . 636)
+ ("/Users/mohamedabdellahi/Projects/learning/c++/LearnCPP/E-Extra/Design.cpp" . 44)
+ ("/Users/mohamedabdellahi/Projects/learning/c++/LearnCPP/E-Extra/Projectile.cpp" . 588)
+ ("/Users/mohamedabdellahi/Projects/learning/c++/LearnCPP/E-Extra/turtle.cpp" . 16)
+ ("/Users/mohamedabdellahi/Projects/learning/c++/xmake/hello/compile_commands.json" . 19)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/categories/internal/domain/category.go"
+  . 2573)
+ ("/opt/homebrew/Cellar/emacs-plus@30/30.2/share/emacs/30.2/lisp/progmodes/lua-ts-mode.el" . 2934)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/categories/module.go" . 325)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/cosec/module.go" . 4308)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/frontends/web/workspace/projects/fulfillment/src/app/guards/fulfillment-center-selection.guard.ts"
+  . 611)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/frontends/web/workspace/projects/fulfillment/src/app/i18n/translations.ts"
+  . 1793)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/frontends/web/workspace/projects/fulfillment/src/app/pages/dashboard/dashboard.component.ts"
+  . 2778)
+ ("/Users/mohamedabdellahi/.emacs.d/modules/ui.el" . 1135)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/cosec/internal/jobs/payment_timeout_checker.go"
+  . 3016)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/cosec/module_test.go" . 589)
+ ("/Users/mohamedabdellahi/.emacs.d/modules/completion.el" . 282)
+ ("/Users/mohamedabdellahi/.emacs.d/modules/editing.el" . 660)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/docker/"
+  (dired-filename . "/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend"))
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/docker/"
+  (dired-filename . "/Users/mohamedabdellahi/Projects/Catosystems/rim-shop"))
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/realm-settings.json/"
+  (dired-filename . "/Users/mohamedabdellahi/Projects/Catosystems/rim-shop"))
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/"
+  (dired-filename . "/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend"))
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/"
+  (dired-filename . "/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/billing"))
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/billing/"
+  (dired-filename
+   . "/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/billing/module.go"))
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/billing/module.go" . 4077)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/backend/billing/module_test.go" . 322)
+ ("/Users/mohamedabdellahi/.emacs.d/modules/projectile.el" . 458)
+ ("/Users/mohamedabdellahi/.emacs.d/modules/"
+  (dired-filename . "/Users/mohamedabdellahi/.emacs.d/modules/ui.el"))
+ ("/Users/mohamedabdellahi/.emacs.d/modules/keybindings.el" . 781)
+ ("/Users/mohamedabdellahi/Projects/Catosystems/rim-shop/.gitmodules" . 529)
+ ("/opt/homebrew/Cellar/emacs-plus@30/30.2/share/emacs/30.2/etc/HELLO" . 2077))

@@ -1,0 +1,1 @@
+/Users/mohamedabdellahi/.emacs.d/straight/repos/llama/llama.el

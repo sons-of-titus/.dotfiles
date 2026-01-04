@@ -1,0 +1,1 @@
+/Users/mohamedabdellahi/.emacs.d/straight/repos/consult/consult.el

@@ -1,0 +1,1 @@
+("~/Projects/learning/c++/xmake/hello/" "~/Projects/learning/c++/LearnCPP/" "~/Projects/Catosystems/rim-shop/" "/opt/homebrew/" "~/Projects/Catosystems/rim-shop/frontends/mobile/" "~/Projects/Catosystems/rim-shop/frontends/web/" "~/Projects/learning/zig/http-server/" "~/Projects/learning/zig/csv-parser/" "~/Projects/learning/c/c_koans/")

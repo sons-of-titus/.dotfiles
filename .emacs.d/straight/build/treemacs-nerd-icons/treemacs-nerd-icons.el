@@ -1,0 +1,1 @@
+/Users/mohamedabdellahi/.emacs.d/straight/repos/treemacs-nerd-icons/treemacs-nerd-icons.el

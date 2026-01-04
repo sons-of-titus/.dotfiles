@@ -1,0 +1,1 @@
+/Users/mohamedabdellahi/.emacs.d/straight/repos/themes/themes/doom-winter-is-coming-light-theme.el
