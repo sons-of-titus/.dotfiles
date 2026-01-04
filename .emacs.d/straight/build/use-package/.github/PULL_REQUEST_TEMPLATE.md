@@ -1,1 +1,0 @@
-/Users/mohamedabdellahi/.emacs.d/straight/repos/use-package/.github/PULL_REQUEST_TEMPLATE.md

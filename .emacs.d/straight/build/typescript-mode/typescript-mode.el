@@ -1,1 +1,0 @@
-/Users/mohamedabdellahi/.emacs.d/straight/repos/typescript.el/typescript-mode.el

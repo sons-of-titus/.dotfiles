@@ -1,1 +1,0 @@
-/Users/mohamedabdellahi/.emacs.d/straight/repos/lsp-mode/clients/lsp-css.el

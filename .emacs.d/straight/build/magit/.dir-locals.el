@@ -1,1 +1,0 @@
-/Users/mohamedabdellahi/.emacs.d/straight/repos/magit/.dir-locals.el

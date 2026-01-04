@@ -1,1 +1,0 @@
-/Users/mohamedabdellahi/.emacs.d/straight/repos/lsp-sourcekit/lsp-sourcekit.el

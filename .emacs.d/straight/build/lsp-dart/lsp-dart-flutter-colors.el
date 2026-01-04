@@ -1,1 +1,0 @@
-/Users/mohamedabdellahi/.emacs.d/straight/repos/lsp-dart/lsp-dart-flutter-colors.el
