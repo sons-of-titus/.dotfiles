@@ -43,8 +43,16 @@ setopt ALWAYS_TO_END           # Move cursor after completion
 # Enable advanced globbing
 setopt EXTENDED_GLOB           # Use advanced wildcards
 
-#
-alias config='/opt/homebrew/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+QT_SCALE_FACTOR=0.8
+
+# Remove any existing alias first (important!)
+unalias config 2>/dev/null
+
+# Create the config function
+config() {
+    git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
+}
 
 eval "$(direnv hook zsh)"
 
@@ -92,6 +100,7 @@ magit() {
 
 
 # Neovim configuration
+export EDITOR='nvim'
 export VISUAL='nvim'
 alias vim='nvim'
 alias vi='nvim'
