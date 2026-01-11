@@ -1,0 +1,34 @@
+# Git ignore for dotfiles repository
+
+# Neovim
+.config/nvim/lazy-lock.json
+.config/nvim/plugin/
+.config/nvim/after/plugin/
+.config/nvim/spell/
+.config/nvim/.luarc.json
+
+# Doom Emacs
+.config/doom/.local/
+.config/doom/.cache/
+.config/doom/.tmp/
+.config/doom/.test/
+.config/doom/.emacs.d/.local/
+.config/doom/.emacs.d/.cache/
+.config/doom/.emacs.d/.test/
+.config/doom/.emacs.d/straight/
+.config/doom/.emacs.d/eln-cache/
+
+# General cache and temp files
+.cache/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Log files
+*.log

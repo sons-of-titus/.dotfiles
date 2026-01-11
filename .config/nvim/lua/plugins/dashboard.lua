@@ -63,7 +63,14 @@ return {
                         key = "p",
                         key_hl = "DashboardKey",
                         key_format = " [%s]",
-                        action = "lua require('telescope').extensions.project.project{}"
+                        action = function()
+                          local ok, _ = pcall(function()
+                            require("telescope").extensions.project.project{}
+                          end)
+                          if not ok then
+                            vim.cmd("Telescope projects")
+                          end
+                        end
                     },
                     {
                         icon = "   ",

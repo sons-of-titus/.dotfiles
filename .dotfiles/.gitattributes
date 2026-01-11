@@ -1,0 +1,29 @@
+# Git attributes for dotfiles repository
+
+# Neovim Lua files
+.config/nvim/**/*.lua text eol=lf
+.config/nvim/init.lua text eol=lf
+
+# Doom Emacs Lisp files
+.config/doom/**/*.el text eol=lf
+.config/doom/config.el text eol=lf
+.config/doom/init.el text eol=lf
+.config/doom/packages.el text eol=lf
+
+# Shell configs
+.config/zsh/**/*.zsh text eol=lf
+.config/bash/**/*.bash text eol=lf
+.zshrc text eol=lf
+.zshenv text eol=lf
+.bashrc text eol=lf
+.bash_profile text eol=lf
+
+# Config files
+.config/kitty/**/*.conf text eol=lf
+.config/mpv/**/*.conf text eol=lf
+
+# JSON files
+*.json text eol=lf
+
+# Lock files (should be ignored, but if tracked)
+*.lock text eol=lf
