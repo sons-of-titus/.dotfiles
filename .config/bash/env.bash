@@ -14,6 +14,10 @@ export LANG=en_US.UTF-8
 # Editor
 export EDITOR='nvim'
 export VISUAL='nvim'
+export PAGER="less"
+
+# Local binaries
+export PATH="$HOME/.local/bin:$PATH"
 
 # Emacs path
 export PATH="$HOME/.config/emacs/bin:$PATH"
@@ -26,6 +30,15 @@ export NVM_DIR="$HOME/.nvm"
 # Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Coursier
+export PATH="$PATH:/home/mourad/.local/share/coursier/bin"
+
+# Opam configuration
+# To update the current shell environment, run: eval $(opam env)
+if command -v opam &> /dev/null; then
+  eval $(opam env)
+fi
 
 # Less with colors
 export LESS='-R'

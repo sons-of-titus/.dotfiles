@@ -6,6 +6,8 @@
 .config/nvim/after/plugin/
 .config/nvim/spell/
 .config/nvim/.luarc.json
+.config/nvim/lazy/
+.config/nvim/.local/
 
 # Doom Emacs
 .config/doom/.local/
@@ -18,6 +20,10 @@
 .config/doom/.emacs.d/straight/
 .config/doom/.emacs.d/eln-cache/
 
+# Hyprland (managed by caelestia)
+.local/share/caelestia/hypr/scheme/current.conf
+.local/share/caelestia/hypr/scripts/
+
 # General cache and temp files
 .cache/
 *.swp
@@ -28,7 +34,6 @@
 # Backup files
 *.bak
 *.backup
-*~
 
 # Log files
 *.log
