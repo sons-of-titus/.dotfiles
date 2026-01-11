@@ -77,6 +77,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(setq doom-font (font-spec :family "Monaco Nerd Font" :size 14)
-      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 14)
+(setq doom-font (font-spec :family "Monaco Nerd Font" :size 15)
+      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 15)
       doom-big-font (font-spec :family "JetBrains Mono Nerd Font" :size 20))
