@@ -189,6 +189,81 @@ Quick line operations.
 (map! :n "Y" #'evil-yank-line)
 #+end_src
 
+** Move Lines and Regions
+
+Move lines or regions up and down using Alt+j/k or Alt+arrow keys. Cursor moves with content and structure is preserved.
+
+#+begin_src emacs-lisp
+(defun +move-line-down-vscode ()
+  "Move current line or region down. Cursor moves with the content."
+  (interactive)
+  (if (use-region-p)
+      ;; Move selected region
+      (let ((start (region-beginning))
+            (end (region-end))
+            (deactivate-mark nil)
+            (col (- (point) (line-beginning-position))))
+        (let ((text (delete-and-extract-region start end)))
+          (forward-line 1)
+          (let ((insert-pos (point)))
+            (insert text)
+            ;; Move cursor to start of moved text
+            (goto-char insert-pos)
+            ;; Restore column position
+            (move-to-column (+ (current-column) col)))))
+    ;; Move single line
+    (let ((col (- (point) (line-beginning-position)))
+          (line-start (line-beginning-position))
+          (line-end (line-end-position)))
+      (when (< line-end (point-max))
+        (let ((line-text (delete-and-extract-region line-start (1+ line-end))))
+          (forward-line 1)
+          (let ((insert-pos (point)))
+            (insert line-text)
+            ;; Move cursor to same position on the moved line
+            (goto-char insert-pos)
+            (move-to-column col)))))))
+
+(defun +move-line-up-vscode ()
+  "Move current line or region up. Cursor moves with the content."
+  (interactive)
+  (if (use-region-p)
+      ;; Move selected region
+      (let ((start (region-beginning))
+            (end (region-end))
+            (deactivate-mark nil)
+            (col (- (point) (line-beginning-position))))
+        (let ((text (delete-and-extract-region start end)))
+          (forward-line -1)
+          (let ((insert-pos (point)))
+            (insert text)
+            ;; Move cursor to start of moved text
+            (goto-char insert-pos)
+            ;; Restore column position
+            (move-to-column (+ (current-column) col)))))
+    ;; Move single line
+    (let ((col (- (point) (line-beginning-position)))
+          (line-start (line-beginning-position))
+          (line-end (line-end-position)))
+      (when (> line-start (point-min))
+        (let ((line-text (delete-and-extract-region line-start (1+ line-end))))
+          (forward-line -1)
+          (let ((insert-pos (point)))
+            (insert line-text)
+            ;; Move cursor to same position on the moved line
+            (goto-char insert-pos)
+            (move-to-column col)))))))
+
+(map! :n "M-j" #'+move-line-down-vscode
+      :n "M-k" #'+move-line-up-vscode
+      :n "M-<down>" #'+move-line-down-vscode
+      :n "M-<up>" #'+move-line-up-vscode
+      :v "M-j" #'+move-line-down-vscode
+      :v "M-k" #'+move-line-up-vscode
+      :v "M-<down>" #'+move-line-down-vscode
+      :v "M-<up>" #'+move-line-up-vscode)
+#+end_src
+
 ** Edit Location Navigation
 
 Jump to last edit locations.
@@ -328,19 +403,135 @@ Configure debugging with DAP mode for better development experience. The debugge
         dap-ui-show-many-frames t
         dap-ui-buttons-mode t
         dap-breakpoints-file (expand-file-name "dap-breakpoints" doom-cache-dir))
-  ;; Keybindings for debugging
+  ;; Keybindings for debugging (only bind functions that exist)
   (map! :leader
         :desc "Debug start"        "d s" #'dap-debug
         :desc "Debug restart"     "d r" #'dap-debug-restart
         :desc "Debug stop"         "d S" #'dap-debug-stop
-        :desc "Debug continue"     "d c" #'dap-debug-continue
+        :desc "Debug continue"     "d c" #'dap-continue
         :desc "Debug step over"    "d n" #'dap-next
-        :desc "Debug step into"    "d i" #'dap-step-in
-        :desc "Debug step out"     "d o" #'dap-step-out
         :desc "Toggle breakpoint"  "d b" #'dap-breakpoint-toggle
-        :desc "Add conditional bp" "d C" #'dap-breakpoint-condition
-        :desc "Add logpoint"       "d l" #'dap-breakpoint-log-message
         :desc "Show debug sessions" "d u" #'dap-ui-sessions))
+#+end_src
+
+** LLDB Configuration
+
+Configure LLDB debugger for C/C++/Rust/Swift debugging. LLDB is the default debugger on macOS and can be used on Linux as well.
+
+Note: Make sure LLDB is installed:
+- macOS: Usually pre-installed, or =brew install llvm=
+- Linux: =sudo apt-get install lldb= (Debian/Ubuntu) or =sudo pacman -S lldb= (Arch)
+- The =lldb-vscode= or =lldb-dap= executable should be in your PATH
+
+#+begin_src emacs-lisp
+(after! dap-lldb
+  ;; Set LLDB path (usually in PATH, but can be customized)
+  (setq dap-lldb-debug-program `("lldb-vscode"))
+  
+  ;; Common LLDB debug configurations
+  (dap-register-debug-template
+   "LLDB: Attach"
+   (list :type "lldb"
+         :request "attach"
+         :name "LLDB::Attach"
+         :program nil
+         :pid "${command:pickProcess}"))
+  
+  (dap-register-debug-template
+   "LLDB: Launch"
+   (list :type "lldb"
+         :request "launch"
+         :name "LLDB::Launch"
+         :program "${workspaceFolder}/${command:pickFile}"
+         :args ""
+         :cwd "${workspaceFolder}"))
+  
+  (dap-register-debug-template
+   "LLDB: Launch (C/C++)"
+   (list :type "lldb"
+         :request "launch"
+         :name "LLDB::Launch (C/C++)"
+         :program "${workspaceFolder}/build/${fileBasenameNoExtension}"
+         :args ""
+         :cwd "${workspaceFolder}"
+         :stopOnEntry nil))
+  
+  (dap-register-debug-template
+   "LLDB: Launch (Rust)"
+   (list :type "lldb"
+         :request "launch"
+         :name "LLDB::Launch (Rust)"
+         :program "${workspaceFolder}/target/debug/${fileBasenameNoExtension}"
+         :args ""
+         :cwd "${workspaceFolder}"
+         :stopOnEntry nil)))
+#+end_src
+
+** DLV (Delve) Configuration for Go
+
+Configure DLV (Delve) debugger for Go debugging. DLV is the Go debugger that integrates with DAP.
+
+Note: Make sure Delve is installed: =go install github.com/go-delve/delve/cmd/dlv@latest=
+
+#+begin_src emacs-lisp
+(after! dap-go
+  ;; Set DLV path (usually in PATH if installed via go install)
+  ;; On Linux/macOS: ~/go/bin/dlv or /usr/local/bin/dlv
+  ;; Can be customized if needed:
+  ;; (setq dap-go-dlv-command-name "dlv")
+  
+  ;; Common DLV debug configurations
+  (dap-register-debug-template
+   "Delve: Attach"
+   (list :type "go"
+         :request "attach"
+         :name "Delve::Attach"
+         :mode "local"
+         :processId "${command:pickProcess}"))
+  
+  (dap-register-debug-template
+   "Delve: Launch (Current File)"
+   (list :type "go"
+         :request "launch"
+         :name "Delve::Launch"
+         :mode "debug"
+         :program "${fileDirname}"
+         :args ""
+         :env nil
+         :showLog t))
+  
+  (dap-register-debug-template
+   "Delve: Launch (Package)"
+   (list :type "go"
+         :request "launch"
+         :name "Delve::Launch (Package)"
+         :mode "debug"
+         :program "${workspaceFolder}"
+         :args ""
+         :env nil
+         :showLog t))
+  
+  (dap-register-debug-template
+   "Delve: Test (Current File)"
+   (list :type "go"
+         :request "launch"
+         :name "Delve::Test"
+         :mode "test"
+         :program "${fileDirname}"
+         :args ""
+         :env nil
+         :showLog t))
+  
+  (dap-register-debug-template
+   "Delve: Test (Package)"
+   (list :type "go"
+         :request "launch"
+         :name "Delve::Test (Package)"
+         :mode "test"
+         :program "${workspaceFolder}"
+         :args ""
+         :env nil
+         :showLog t)))
 #+end_src
 
 * Terminal Integration
@@ -420,6 +611,29 @@ Improve completion experience.
         corfu-auto-prefix 2
         corfu-popupinfo-delay 0.5
         corfu-popupinfo-max-width 80))
+#+end_src
+
+** Multiple Cursors
+
+Configure multiple-cursors to work with evil mode bindings. Doom uses evil-mc for integration.
+
+Default keybindings:
+- =g z z= - Toggle cursor at point
+- =g z m= - Create cursor and move to next match
+- =g z M= - Create cursor and move to previous match
+- =g z j= - Create cursor and move to next line
+- =g z k= - Create cursor and move to previous line
+- =g z t= - Toggle all cursors
+- =g z u= - Undo last cursor
+- =g z q= - Remove all cursors
+
+#+begin_src emacs-lisp
+(after! multiple-cursors
+  ;; Enable evil mode integration (already done by Doom, but ensure it's active)
+  (evil-mc-initialize)
+  ;; Better integration with evil commands
+  (setq evil-mc-enable-bar-cursor t
+        evil-mc-cursor-variable-pitch nil))
 #+end_src
 
 ** Magit Enhancements

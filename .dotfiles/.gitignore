@@ -21,6 +21,10 @@
 .config/doom/.emacs.d/eln-cache/
 .config/doom/config.el  # Generated from config.org (literate config)
 
+# Tmux plugins (managed by TPM)
+.config/tmux/plugins/
+.config/tmux/tpm/
+
 # Caelestia (managed configs)
 .local/share/caelestia/.git/
 .local/share/caelestia/.github/
