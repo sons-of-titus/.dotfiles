@@ -1,7 +1,7 @@
 # History Configuration
 
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 HISTFILE=~/.zsh_history
 
 setopt SHARE_HISTORY           # Share history across sessions

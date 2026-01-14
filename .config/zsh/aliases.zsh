@@ -1,5 +1,24 @@
 # Aliases Configuration
 
+# Safety aliases
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# List files
+alias ls='ls --color=auto'
+alias ll='ls -lh'
+alias la='ls -lAh'
+alias l='ls -CF'
+
+# Grep colors
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# Utilities
+alias mkdir='mkdir -p'
+
 # Kitty icat
 alias icat="kitten icat"
 
