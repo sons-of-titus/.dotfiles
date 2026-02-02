@@ -27,36 +27,90 @@ return {
     local dapui = require("dapui")
     
     require("nvim-dap-virtual-text").setup()
-    require("dap-go").setup()
+    require("dap-go").setup({
+       delve = {
+         path = vim.fn.stdpath("data") .. "/mason/packages/delve/dlv",
+         initialize_timeout_sec = 20,
+       },
+    })
     
     -- Setup Mason DAP
     require("mason-nvim-dap").setup({
-      ensure_installed = { "codelldb", "kotlin-debug-adapter" },
+      ensure_installed = { "codelldb", "kotlin-debug-adapter", "cpptools", "delve" },
       automatic_installation = true,
       handlers = {
         function(config)
            require('mason-nvim-dap').default_setup(config) 
         end,
-        -- Custom override for codelldb if needed, but default is usually fine
+        codelldb = function(config)
+           local mason_registry = require("mason-registry")
+           local codelldb = mason_registry.get_package("codelldb")
+           if not codelldb:is_installed() then
+               require('mason-nvim-dap').default_setup(config) -- Fallback
+               return
+           end
+           local extension_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/"
+           local codelldb_path = extension_path .. "adapter/codelldb"
+           local this_os = vim.uv.os_uname().sysname;
+           if this_os:find "Windows" then
+             codelldb_path = extension_path .. "adapter\\codelldb.exe"
+           else
+             -- The main executable is the same for Linux/Mac
+             codelldb_path = extension_path .. "adapter/codelldb"
+           end
+           
+            local dap = require('dap')
+            dap.adapters.codelldb = {
+                type = 'server',
+                port = "${port}",
+                executable = {
+                    command = codelldb_path,
+                    args = {"--port", "${port}"},
+                },
+                detached = false,
+            }
+            dap.configurations.cpp = {
+              {
+                name = "Launch file",
+                type = "codelldb",
+                request = "launch",
+                program = function()
+                  return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                end,
+                cwd = '${workspaceFolder}',
+                stopOnEntry = false,
+              },
+            }
+             dap.configurations.c = dap.configurations.cpp
+             dap.configurations.rust = dap.configurations.cpp
+        end,
+        cppdbg = function(config)
+           local mason_registry = require("mason-registry")
+           local cpptools = mason_registry.get_package("cpptools")
+           if not cpptools:is_installed() then
+               require('mason-nvim-dap').default_setup(config) -- Fallback
+               return
+           end
+           local extension_path = vim.fn.stdpath("data") .. "/mason/packages/cpptools/extension/"
+           local command = extension_path .. "debugAdapters/bin/OpenDebugAD7"
+           local this_os = vim.uv.os_uname().sysname;
+           if this_os:find "Windows" then
+             command = extension_path .. "debugAdapters\\bin\\OpenDebugAD7.exe"
+           end
+
+           local dap = require('dap')
+            dap.adapters.cppdbg = {
+                id = 'cppdbg',
+                type = 'executable',
+                command = command,
+                options = {
+                    detached = false
+                }
+            }
+        end,
       },
     })
     
-    -- Manual setup for C/C++/Rust using codelldb if default_setup doesn't catch all cases
-    -- or to be specific about configurations.
-    dap.configurations.cpp = {
-      {
-        name = "Launch file",
-        type = "codelldb",
-        request = "launch",
-        program = function()
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = false,
-      },
-    }
-    dap.configurations.c = dap.configurations.cpp
-    dap.configurations.rust = dap.configurations.cpp
 
     dapui.setup()
     

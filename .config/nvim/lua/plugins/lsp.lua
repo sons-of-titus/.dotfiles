@@ -4,31 +4,12 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
     "folke/neodev.nvim",
     "hrsh7th/cmp-nvim-lsp",
   },
   config = function()
-    -- Mason setup
-    require("mason").setup({
-      ui = {
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
-        },
-      },
-    })
+    -- Mason setup removed (moved to mason.lua)
 
-    -- Auto-install linters and formatters
-    local mason_tool_installer = require("mason-tool-installer")
-    mason_tool_installer.setup({
-        ensure_installed = {
-            "prettier", -- Formatter
-            "pylint",   -- Python Linter
-        },
-    })
-    
     require("mason-lspconfig").setup({
       ensure_installed = {
         "clangd",
