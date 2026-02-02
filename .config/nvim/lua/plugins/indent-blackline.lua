@@ -11,6 +11,24 @@ return {
         show_start = false,
         show_end = false,
       },
+      exclude = {
+        filetypes = {
+          "dashboard",
+          "help",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lspinfo",
+          "checkhealth",
+          "man",
+          "gitcommit",
+          "TelescopePrompt",
+          "TelescopeResults",
+        },
+      },
     })
   end,
 }

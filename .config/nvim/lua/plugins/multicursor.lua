@@ -2,13 +2,14 @@ return {
   "mg979/vim-visual-multi",
   event = "VeryLazy",
   init = function()
+    vim.g.VM_default_mappings = 0 -- Fix <M> overlap
     vim.g.VM_maps = {
-      ["Find Under"] = "<C-d>",           -- Start multi-cursor on word
+      ["Find Under"] = "<C-d>",
       ["Find Subword Under"] = "<C-d>",
-      ["Skip Region"] = "<C-x>",          -- Skip current and find next
-      ["Remove Region"] = "<C-p>",        -- Remove current cursor
-      ["Add Cursor Down"] = "<M-j>",      -- Add cursor below
-      ["Add Cursor Up"] = "<M-k>",        -- Add cursor above
+      ["Skip Region"] = "<C-x>",
+      ["Remove Region"] = "<C-p>",
+      ["Add Cursor Down"] = "<C-j>",
+      ["Add Cursor Up"] = "<C-k>",
     }
   end,
 }

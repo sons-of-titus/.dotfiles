@@ -1,26 +1,9 @@
-#+title: Doom Emacs Configuration
-#+author: mourad
-#+description: Literate configuration for Doom Emacs with evil mode enhancements
-
-* Basic Settings
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Leader Keys
-
-Set the local leader key to comma for mode-specific commands.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Leader Keys][Leader Keys:1]]
 (setq doom-localleader-key ","
       doom-localleader-alt-key "M-,")
-#+end_src
+;; Leader Keys:1 ends here
 
-** Fonts
-
-Configure custom fonts for Doom Emacs.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Fonts][Fonts:1]]
 ;; Cross-platform font configuration with fallbacks
 (setq doom-font (font-spec :family (cond
                                      ((find-font (font-spec :family "Monaco Nerd Font")) "Monaco Nerd Font")
@@ -38,13 +21,9 @@ Configure custom fonts for Doom Emacs.
                                          ((find-font (font-spec :family "JetBrains Mono")) "JetBrains Mono")
                                          (t "Monospace"))
                                :size (if (eq system-type 'darwin) 20 18)))
-#+end_src
+;; Fonts:1 ends here
 
-** Theme and Display
-
-Premium theme and enhanced visual settings for a beautiful UI.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Theme and Display][Theme and Display:1]]
 ;; Gruvbox - Warm, retro theme with earthy tones
 ;; Alternatives: doom-gruvbox-light (light version)
 (setq doom-theme 'doom-one)
@@ -114,46 +93,25 @@ Premium theme and enhanced visual settings for a beautiful UI.
   (setq treemacs-width 35
         treemacs-position 'left
         treemacs-indentation 1))
-#+end_src
+;; Theme and Display:1 ends here
 
-** Org Directory
-
-Configure the default org directory.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Org Directory][Org Directory:1]]
 (setq org-directory "~/org/")
-#+end_src
+;; Org Directory:1 ends here
 
-** Environment Variables
-
-Set environment variables for better tool integration.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Environment Variables][Environment Variables:1]]
 (setenv "PAGER" "less")
-#+end_src
+;; Environment Variables:1 ends here
 
-** PATH from Shell
-
-Inherit PATH from shell on macOS. Deferred to Clojure mode to save ~100-200ms startup time.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*PATH from Shell][PATH from Shell:1]]
 ;; Only load PATH when a programming mode is activated (saves startup time)
+;; PATH from Shell:1 ends here
 
-#+end_src
-
-** Dashboard Configuration
-
-Customize the startup dashboard.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Dashboard Configuration][Dashboard Configuration:1]]
 (setq fancy-splash-image (concat doom-private-dir "emacs.svg"))
-#+end_src
+;; Dashboard Configuration:1 ends here
 
-** Spell Checking
-
-Configure spell checking with Hunspell and the installed dictionary.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Spell Checking][Spell Checking:1]]
 ;; Cross-platform spell checking configuration
 (after! spell
   ;; Use aspell if available (more portable), else hunspell
@@ -168,18 +126,9 @@ Configure spell checking with Hunspell and the installed dictionary.
           '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))))
   (when (string= ispell-program-name "aspell")
     (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))))
-#+end_src
+;; Spell Checking:1 ends here
 
-* Evil Mode Configuration
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Search Behavior
-
-Configure smart case search and better visual feedback for evil mode.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Search Behavior][Search Behavior:1]]
 (after! evil
   ;; Use smart case search (case-insensitive unless uppercase)
   (setq evil-search-module 'evil-search
@@ -196,93 +145,39 @@ Configure smart case search and better visual feedback for evil mode.
         evil-indent-convert-tabs nil
         ;; Better word boundaries
         evil-symbol-word-search t))
-#+end_src
+;; Search Behavior:1 ends here
 
-** Visual Selection
-
-NOTE: Cursor styles are now configured in the Premium Cursor section below.
-Visual selection behavior is handled by Evil mode defaults.
-
-** Visual Line Navigation
-
-Enable respect for visual line mode.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Visual Line Navigation][Visual Line Navigation:1]]
 (after! evil
   (setq evil-respect-visual-line-mode t))
-#+end_src
+;; Visual Line Navigation:1 ends here
 
-** Visual Block Editing
-
-Configure visual block editing behavior.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Visual Block Editing][Visual Block Editing:1]]
 (after! evil
   (setq evil-visual-block-fill-column nil))
-#+end_src
+;; Visual Block Editing:1 ends here
 
-** Evil Escape
-
-Configure quick escape from insert mode using "jk" sequence.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Evil Escape][Evil Escape:1]]
 (after! evil-escape
   (setq evil-escape-key-sequence "jk"
         evil-escape-delay 0.2))
-#+end_src
+;; Evil Escape:1 ends here
 
-* Keybindings
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Insert Mode Navigation
-
-Better navigation in insert mode with familiar keybindings.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Insert Mode Navigation][Insert Mode Navigation:1]]
 ;; Keep Evil defaults for C-a, C-e, RET, C-z
 ;; Only add useful insert mode utilities
 (map! :i "C-w" #'evil-delete-backward-word
       :i "C-u" #'evil-delete-back-to-indentation)
-#+end_src
+;; Insert Mode Navigation:1 ends here
 
-** Window Navigation
-
-Quick window navigation using leader key.
-
-NOTE: These are already Doom defaults (SPC w h/j/k/l).
-
-** Code Navigation
-
-Enhanced code navigation bindings.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Code Navigation][Code Navigation:1]]
 ;; gd is Doom's default for definitions, gx opens URLs (preserved)
 ;; Using gD for xref definitions (uppercase), gr for references
 (map! :n "gD" #'xref-find-definitions
       :n "gr" #'xref-find-references)
-#+end_src
+;; Code Navigation:1 ends here
 
-
-
-** Code Folding
-
-Evil mode code folding keybindings.
-
-NOTE: za/zR/zM/zo/zc are already Evil defaults.
-
-** Line Operations
-
-Quick line operations.
-
-NOTE: Y is already remapped to evil-yank-line in Doom.
-
-** Move Lines and Regions
-
-Move lines or regions up and down using Alt+j/k or Alt+arrow keys. Cursor moves with content and structure is preserved.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Move Lines and Regions][Move Lines and Regions:1]]
 ;; Use drag-stuff package instead of custom functions (~60 lines saved)
 (use-package! drag-stuff
   :defer t
@@ -298,80 +193,29 @@ Move lines or regions up and down using Alt+j/k or Alt+arrow keys. Cursor moves 
   :config
   (drag-stuff-global-mode 1)
   (with-eval-after-load 'evil
-    (drag-stuff-define-keys))) 
-#+end_src
+    (drag-stuff-define-keys)))
+;; Move Lines and Regions:1 ends here
 
-** Edit Location Navigation
-
-Jump to last edit locations.
-
-NOTE: C-o/C-i are already Evil defaults for jump navigation.
-
-** Search and Replace
-
-Better search and replace workflow.
-
-NOTE: n/N are already Evil defaults for search navigation.
-
-
-
-
-
-** Error Navigation
-
-Navigate between errors and diagnostics.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Error Navigation][Error Navigation:1]]
 ;; Using flymake (eglot uses flymake, not flycheck)
 (map! :n "]e" #'flymake-goto-next-error
       :n "[e" #'flymake-goto-prev-error
       :n "]d" #'flymake-show-buffer-diagnostics
       :n "[d" #'flymake-show-project-diagnostics)
-#+end_src
+;; Error Navigation:1 ends here
 
-** Project Operations
-
-Quick project file and project switching.
-
-NOTE: SPC p f and SPC p s are already Doom defaults.
-
-
-
-** Code Formatting
-
-Format buffer using Doom's format module.
-
-NOTE: SPC c f is already Doom's format binding.
-
-** Macro Execution
-
-Quick macro recording and execution.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Macro Execution][Macro Execution:1]]
 (map! :n "Q" #'evil-execute-macro)
-#+end_src
+;; Macro Execution:1 ends here
 
-** Code Evaluation
-
-Quick code evaluation for REPL languages.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Code Evaluation][Code Evaluation:1]]
 (map! :leader
       :desc "Eval buffer"    "e b" #'eval-buffer
       :desc "Eval region"     "e r" #'eval-region
       :desc "Eval last sexp"  "e l" #'eval-last-sexp)
-#+end_src
+;; Code Evaluation:1 ends here
 
-* Language Server Protocol
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** LSP Integration
-
-Better LSP integration with eglot (the configured LSP client).
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*LSP Integration][LSP Integration:1]]
 ;; Using eglot as configured in init.el (+eglot flag)
 (after! eglot
   (setq eglot-autoshutdown t
@@ -450,44 +294,9 @@ Better LSP integration with eglot (the configured LSP client).
   ;; Angular - ngserver
   (add-to-list 'eglot-server-programs
                '((ng2-html-mode ng2-ts-mode) . ("ngserver" "--stdio" "--tsProbeLocations" "" "--ngProbeLocations" ""))))
-#+end_src
+;; LSP Integration:1 ends here
 
-* Debugging
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** DAP (Debug Adapter Protocol) Configuration
-
-Configure debugging with DAP mode. Full keybinding tree under =SPC d=.
-
-| Key       | Action                   |
-|-----------+--------------------------|
-| =SPC d d= | Launch debugger          |
-| =SPC d l= | Debug last config        |
-| =SPC d r= | Debug recent             |
-| =SPC d R= | Restart session          |
-| =SPC d q= | Disconnect               |
-| =SPC d c= | Continue                 |
-| =SPC d n= | Step over                |
-| =SPC d i= | Step into                |
-| =SPC d o= | Step out                 |
-| =SPC d b= | Toggle breakpoint        |
-| =SPC d B= | Conditional breakpoint   |
-| =SPC d H= | Hit count breakpoint     |
-| =SPC d L= | Log breakpoint           |
-| =SPC d D= | Delete all breakpoints   |
-| =SPC d .= | List breakpoints         |
-| =SPC d e= | Eval expression          |
-| =SPC d E= | Eval at point            |
-| =SPC d w= | Add watch                |
-| =SPC d v= | Inspect value            |
-| =SPC d u= | Toggle DAP UI            |
-| =SPC d s= | Locals panel             |
-| =SPC d S= | Sessions panel           |
-| =SPC d p= | REPL                     |
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*DAP (Debug Adapter Protocol) Configuration][DAP (Debug Adapter Protocol) Configuration:1]]
 (after! dap-mode
   ;; Enable all UI features
   (setq dap-auto-configure-features '(sessions locals breakpoints expressions controls tooltip)
@@ -513,18 +322,9 @@ Configure debugging with DAP mode. Full keybinding tree under =SPC d=.
   (custom-set-faces!
     '(dap-ui-pending-breakpoint-face :foreground "#d19a66" :weight bold)
     '(dap-ui-verified-breakpoint-face :foreground "#e06c75" :weight bold)))
-#+end_src
+;; DAP (Debug Adapter Protocol) Configuration:1 ends here
 
-** LLDB Configuration
-
-Configure LLDB debugger for C/C++/Rust/Swift debugging. LLDB is the default debugger on macOS and can be used on Linux as well.
-
-Note: Make sure LLDB is installed:
-- macOS: Usually pre-installed, or =brew install llvm=
-- Linux: =sudo apt-get install lldb= (Debian/Ubuntu) or =sudo pacman -S lldb= (Arch)
-- The =lldb-vscode= or =lldb-dap= executable should be in your PATH
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*LLDB Configuration][LLDB Configuration:1]]
 (after! dap-lldb
   ;; Cross-platform LLDB executable detection
   (setq dap-lldb-debug-program
@@ -570,15 +370,9 @@ Note: Make sure LLDB is installed:
          :args ""
          :cwd "${workspaceFolder}"
          :stopOnEntry nil)))
-#+end_src
+;; LLDB Configuration:1 ends here
 
-** DLV (Delve) Configuration for Go
-
-Configure DLV (Delve) debugger for Go debugging. DLV is the Go debugger that integrates with DAP.
-
-Note: Make sure Delve is installed: =go install github.com/go-delve/delve/cmd/dlv@latest=
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*DLV (Delve) Configuration for Go][DLV (Delve) Configuration for Go:1]]
 (after! dap-go
   ;; Set DLV path (usually in PATH if installed via go install)
   ;; On Linux/macOS: ~/go/bin/dlv or /usr/local/bin/dlv
@@ -637,13 +431,9 @@ Note: Make sure Delve is installed: =go install github.com/go-delve/delve/cmd/dl
          :args ""
          :env nil
          :showLog t)))
-#+end_src
+;; DLV (Delve) Configuration for Go:1 ends here
 
-** Python Debug Templates
-
-Debug Python with =debugpy=. Supports current file, pytest, and remote attach.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Python Debug Templates][Python Debug Templates:1]]
 (after! dap-python
   (setq dap-python-debugger 'debugpy)
   (dap-register-debug-template
@@ -670,13 +460,9 @@ Debug Python with =debugpy=. Supports current file, pytest, and remote attach.
          :connect (list :host "localhost" :port 5678)
          :pathMappings (vector (list :localRoot "${workspaceFolder}"
                                      :remoteRoot ".")))))
-#+end_src
+;; Python Debug Templates:1 ends here
 
-** Node.js Debug Templates
-
-Debug Node.js/TypeScript. Supports current file, attach, and Jest.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Node.js Debug Templates][Node.js Debug Templates:1]]
 (after! dap-node
   (dap-register-debug-template
    "Node: Current File"
@@ -702,46 +488,24 @@ Debug Node.js/TypeScript. Supports current file, attach, and Jest.
          :args "--runInBand ${file}"
          :cwd "${workspaceFolder}"
          :console "integratedTerminal")))
-#+end_src
+;; Node.js Debug Templates:1 ends here
 
-* Terminal Integration
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** VTerm Keybindings
-
-Better terminal integration with vterm.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*VTerm Keybindings][VTerm Keybindings:1]]
 (after! vterm
   (setq vterm-max-scrollback 10000)
   (map! :map vterm-mode-map
         :i "C-w" #'vterm-send-C-w
         :i "C-u" #'vterm-send-C-u
         :i "C-y" #'vterm-send-C-y))
-#+end_src
+;; VTerm Keybindings:1 ends here
 
-* Editor Enhancements
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Better Indentation
-
-Configure smarter indentation behavior.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Better Indentation][Better Indentation:1]]
 (setq-default tab-width 2
               indent-tabs-mode nil
               fill-column 80)
-#+end_src
+;; Better Indentation:1 ends here
 
-** Aggressive Indent
-
-Automatically keep code properly indented as you type.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Aggressive Indent][Aggressive Indent:1]]
 (use-package! aggressive-indent
   :config
   ;; Enable globally for programming modes
@@ -750,7 +514,6 @@ Automatically keep code properly indented as you type.
   ;; Exclude modes where it causes issues
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode)  ;; Python is whitespace-sensitive
-  (add-to-list 'aggressive-indent-excluded-modes 'go-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'makefile-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'makefile-gmake-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'yaml-mode)
@@ -761,108 +524,52 @@ Automatically keep code properly indented as you type.
         '((and (derived-mode-p 'c++-mode)
                (null (string-match "\\([;{}]\\|\\b\\(if\\|for\\|while\\)\\b\\)"
                                    (thing-at-point 'line)))))))
-#+end_src
+;; Aggressive Indent:1 ends here
 
-** Recent Files
-
-Better recent file management.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Recent Files][Recent Files:1]]
 (after! recentf
   (setq recentf-max-saved-items 100
         recentf-exclude '("/tmp/" "/var/tmp/" ".*\\.git/.*" ".*\\.cache/.*")))
-#+end_src
+;; Recent Files:1 ends here
 
-** Better Scrolling
-
-Smooth scrolling configuration.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Better Scrolling][Better Scrolling:1]]
 ;; scroll-margin is set to 3 in Theme section
 (setq scroll-step 1
       scroll-conservatively 101
       scroll-preserve-screen-position t)
-#+end_src
+;; Better Scrolling:1 ends here
 
-** Auto-save Configuration
-
-Configure auto-save behavior for better safety.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Auto-save Configuration][Auto-save Configuration:1]]
 (setq auto-save-default t
       auto-save-timeout 20
       auto-save-interval 200
       make-backup-files nil
       create-lockfiles nil)
-#+end_src
+;; Auto-save Configuration:1 ends here
 
-** Better Completion
-
-Improve completion experience.
-
-** Multiple Cursors
-
-Configure multiple-cursors to work with evil mode bindings. Doom uses evil-mc for integration.
-
-Default keybindings:
-- =g z z= - Toggle cursor at point
-- =g z m= - Create cursor and move to next match
-- =g z M= - Create cursor and move to previous match
-- =g z j= - Create cursor and move to next line
-- =g z k= - Create cursor and move to previous line
-- =g z t= - Toggle all cursors
-- =g z u= - Undo last cursor
-- =g z q= - Remove all cursors
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Multiple Cursors][Multiple Cursors:1]]
 (after! multiple-cursors
   ;; Enable evil mode integration (already done by Doom, but ensure it's active)
   (evil-mc-initialize)
   ;; Better integration with evil commands
   (setq evil-mc-enable-bar-cursor t
         evil-mc-cursor-variable-pitch nil))
-#+end_src
+;; Multiple Cursors:1 ends here
 
-** Magit Enhancements
-
-Better git integration with magit.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Magit Enhancements][Magit Enhancements:1]]
 (after! magit
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1
         magit-diff-refine-hunk t
         magit-save-repository-buffers 'dontask))
-#+end_src
+;; Magit Enhancements:1 ends here
 
-* Notes
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Text Objects
-
-Function text objects (af/if) are available through tree-sitter when enabled for the language.
-
-** Undo Navigation
-
-Configure undo-fu for better undo/redo behavior. This prevents warnings when trying to redo without undo steps.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Undo Navigation][Undo Navigation:1]]
 (after! undo-fu
   (setq undo-fu-ignore-keyboard-quit t
         undo-fu-allow-undo-in-region t))
-#+end_src
+;; Undo Navigation:1 ends here
 
-* UI Enhancements
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Dashboard
-
-Customize the Doom dashboard for a better startup experience.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Dashboard][Dashboard:1]]
 (after! doom-dashboard
   (setq +doom-dashboard-banner-padding '(4 . 4)
         +doom-dashboard-menu-sections
@@ -878,13 +585,9 @@ Customize the Doom dashboard for a better startup experience.
           ("Open private configuration" :icon
            (nerd-icons-octicon "nf-oct-gear" :face 'doom-dashboard-menu-title)
            :action doom/open-private-config))))
-#+end_src
+;; Dashboard:1 ends here
 
-** Which-key Styling
-
-Better which-key popup appearance.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Which-key Styling][Which-key Styling:1]]
 (after! which-key
   (setq which-key-idle-delay 0.3
         which-key-idle-secondary-delay 0.05
@@ -894,13 +597,9 @@ Better which-key popup appearance.
         which-key-max-description-length 40
         which-key-allow-imprecise-window-fit t
         which-key-separator " → "))
-#+end_src
+;; Which-key Styling:1 ends here
 
-** Vertico Styling
-
-Better minibuffer completion appearance.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Vertico Styling][Vertico Styling:1]]
 (after! vertico
   (setq vertico-count 12
         vertico-cycle t
@@ -909,13 +608,9 @@ Better minibuffer completion appearance.
 (after! marginalia
   (setq marginalia-align 'right
         marginalia-max-relative-age 0))
-#+end_src
+;; Vertico Styling:1 ends here
 
-** Popup Rules
-
-Better popup window behavior.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Popup Rules][Popup Rules:1]]
 (after! popup
   (set-popup-rules!
     '(("^\\*helpful" :size 0.4 :select t :quit t)
@@ -923,25 +618,17 @@ Better popup window behavior.
       ("^\\*doom:vterm" :size 0.35 :vslot -4 :select t :quit nil :ttl nil)
       ("^\\*Warnings\\*" :size 0.25 :select nil :quit t)
       ("^\\*compilation\\*" :size 0.35 :select nil :quit t))))
-#+end_src
+;; Popup Rules:1 ends here
 
-** Zen Mode
-
-Enhanced zen mode for distraction-free writing/coding.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Zen Mode][Zen Mode:1]]
 (after! writeroom-mode
   (setq +zen-text-scale 0.8
         writeroom-width 100
         writeroom-extra-line-spacing 0.5
         writeroom-mode-line t))
-#+end_src
+;; Zen Mode:1 ends here
 
-** Visual Polish
-
-Premium visual refinements for a polished editing experience.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Visual Polish][Visual Polish:1]]
 ;; Smoother startup and performance
 (setq inhibit-compacting-font-caches t
       read-process-output-max (* 1024 1024)  ;; 1mb for LSP performance
@@ -1002,11 +689,9 @@ Premium visual refinements for a polished editing experience.
 ;; Nerd icons for dired
 (after! nerd-icons-dired
   (add-hook 'dired-mode-hook #'nerd-icons-dired-mode))
-#+end_src
+;; Visual Polish:1 ends here
 
-** Org-Mode Aesthetics
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Org-Mode Aesthetics][Org-Mode Aesthetics:1]]
 (after! org
   (setq org-hide-emphasis-markers t
         org-pretty-entities t
@@ -1036,9 +721,9 @@ Premium visual refinements for a polished editing experience.
         org-modern-tag t org-modern-priority t org-modern-todo t
         org-modern-table t org-modern-block-fringe t
         org-modern-horizontal-rule "─────────────────────────────────────────────────"))
-#+end_src
+;; Org-Mode Aesthetics:1 ends here
 
-#+begin_src emacs-lisp
+;; [[file:config.org::*Org-Mode Aesthetics][Org-Mode Aesthetics:2]]
 (custom-set-faces!
   '(org-level-1 :height 1.4 :weight bold)
   '(org-level-2 :height 1.25 :weight bold)
@@ -1050,33 +735,9 @@ Premium visual refinements for a polished editing experience.
   '(org-block-end-line :foreground "#585b70" :slant italic)
   '(org-done :strike-through t)
   '(org-headline-done :strike-through t))
-#+end_src
+;; Org-Mode Aesthetics:2 ends here
 
-;; Better link styling
-(after! org
-  (setq org-link-descriptive t)
-  (custom-set-faces!
-    '(org-link :foreground unspecified :underline t :inherit link)))
-
-;; Mixed pitch for org-mode (prose + code)
-(after! mixed-pitch
-  (setq mixed-pitch-set-height t)
-  (add-hook 'org-mode-hook #'mixed-pitch-mode)
-  (add-hook 'markdown-mode-hook #'mixed-pitch-mode))
-
-;; Visual line mode for org (better wrapping)
-(add-hook 'org-mode-hook #'visual-line-mode)
-
-;; Toc-org for automatic table of contents
-(after! toc-org
-  (add-hook 'org-mode-hook #'toc-org-mode))
-#+end_src
-
-** Final Touches
-
-Additional configuration for a refined experience.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Final Touches][Final Touches:1]]
 ;; Start maximized
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -1091,13 +752,9 @@ Additional configuration for a refined experience.
 ;; Native compilation for better performance
 (when (native-comp-available-p)
   (setq native-comp-async-report-warnings-errors 'silent))
-#+end_src
+;; Final Touches:1 ends here
 
-** Cursor & Navigation Excellence
-
-Never lose your cursor with beacon and smooth navigation feedback.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Cursor & Navigation Excellence][Cursor & Navigation Excellence:1]]
 ;; Beacon - Flash cursor on scroll/jump (never lose it!)
 (use-package! beacon
   :config
@@ -1127,13 +784,9 @@ Never lose your cursor with beacon and smooth navigation feedback.
   (add-to-list 'pulsar-pulse-functions #'evil-scroll-down)
   (add-to-list 'pulsar-pulse-functions #'evil-scroll-up)
   (add-to-list 'pulsar-pulse-functions #'recenter-top-bottom))
-#+end_src
+;; Cursor & Navigation Excellence:1 ends here
 
-** Focus Mode
-
-Dim inactive buffers for laser focus on current work.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Focus Mode][Focus Mode:1]]
 ;; Dimmer - Dim inactive buffers
 (use-package! dimmer
   :config
@@ -1150,13 +803,9 @@ Dim inactive buffers for laser focus on current work.
   (add-to-list 'dimmer-buffer-exclusion-regexps "^\\*Minibuf")
   (add-to-list 'dimmer-buffer-exclusion-regexps "^\\*cider-repl")
   (add-to-list 'dimmer-buffer-exclusion-regexps "^\\*vterm"))
-#+end_src
+;; Focus Mode:1 ends here
 
-** Completion UI Excellence
-
-Icons and premium styling for completion popups.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Completion UI Excellence][Completion UI Excellence:1]]
 ;; Kind-icon for beautiful completion icons
 (use-package! kind-icon
   :after corfu
@@ -1196,13 +845,9 @@ Icons and premium styling for completion popups.
   '(corfu-current :background "#3d4451" :foreground "#eceff4" :weight bold)
   '(corfu-border :background "#3d4451")
   '(corfu-bar :background "#61afef"))
-#+end_src
+;; Completion UI Excellence:1 ends here
 
-** Which-Key Posframe
-
-Floating which-key for a modern look.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Which-Key Posframe][Which-Key Posframe:1]]
 ;; Which-key in a floating frame (modern look)
 (use-package! which-key-posframe
   :after which-key
@@ -1214,13 +859,9 @@ Floating which-key for a modern look.
         which-key-posframe-parameters
         '((left-fringe . 8)
           (right-fringe . 8))))
-#+end_src
+;; Which-Key Posframe:1 ends here
 
-** Doom Themes Extras
-
-Enhanced theme features for visual polish.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Doom Themes Extras][Doom Themes Extras:1]]
 ;; Doom themes visual bell and extras
 (after! doom-themes
   ;; Flash modeline on errors (visual bell)
@@ -1230,19 +871,9 @@ Enhanced theme features for visual polish.
   ;; Better treemacs icons
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config))
-#+end_src
+;; Doom Themes Extras:1 ends here
 
-** Goggles (Enhanced Visual Feedback)
-
-NOTE: evil-goggles is already configured in UI Polish section.
-The goggles package was disabled in packages.el as it conflicts.
-
-
-** Premium Window Management
-
-Subtle animations and better window aesthetics.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Premium Window Management][Premium Window Management:1]]
 ;; Better window dividers with theme colors
 (after! frame
   (setq window-divider-default-right-width 1
@@ -1258,13 +889,9 @@ Subtle animations and better window aesthetics.
         aw-minibuffer-flag t)
   (custom-set-faces!
     '(aw-leading-char-face :foreground "#ff6c6b" :height 2.5 :weight bold)))
-#+end_src
+;; Premium Window Management:1 ends here
 
-** Premium Cursor
-
-Cursor that stands out and feels responsive.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Premium Cursor][Premium Cursor:1]]
 ;; Premium cursor configuration
 (setq-default cursor-type '(bar . 3)  ;; Sleek bar cursor
               cursor-in-non-selected-windows 'hollow
@@ -1284,26 +911,9 @@ Cursor that stands out and feels responsive.
 ;; Blink cursor in GUI
 (when (display-graphic-p)
   (blink-cursor-mode 1))
-#+end_src
+;; Premium Cursor:1 ends here
 
-* TMR (Timer and Reminder)
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-
-
-* Devdocs (Developer Documentation)
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Devdocs Configuration
-
-Access developer documentation for various languages and frameworks
-directly within Emacs.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Devdocs Configuration][Devdocs Configuration:1]]
 (after! devdocs
   ;; Where to store downloaded docs
   (setq devdocs-data-dir (expand-file-name "devdocs" doom-data-dir))
@@ -1371,63 +981,9 @@ directly within Emacs.
       :desc "Delete docs"       "D" #'devdocs-delete
       :desc "Update all docs"   "u" #'devdocs-update-all
       :desc "Peruse docs"       "p" #'devdocs-peruse)
-#+end_src
+;; Devdocs Configuration:1 ends here
 
-* Nov.el (EPUB Reader)
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Nov.el Configuration
-
-Read EPUB ebooks directly in Emacs with a pleasant reading experience.
-
-#+begin_src emacs-lisp
-
-(after! nov
-  (require 'cl-lib)
-  ;; Visual settings for better reading experience
-  (setq nov-text-width 80
-        nov-variable-pitch t
-        nov-save-place-file (expand-file-name "nov-places" doom-data-dir))
-
-  ;; Use visual-line-mode for better text wrapping
-  (add-hook 'nov-mode-hook #'visual-line-mode)
-* Document Viewers (PDF, EPUB, DjVu)
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
-;; PDF Support - pdf-tools
-(use-package! pdf-tools
-  :config
-  (pdf-tools-install :no-query)
-  (add-hook 'pdf-view-mode-hook #'auto-revert-mode))
-
-;; EPUB Support - nov.el
-(use-package! nov
-  :mode ("\\.epub\\'" . nov-mode)
-  :config
-  (setq nov-save-place-file (expand-file-name "nov-places" doom-data-dir))
-  (add-hook 'nov-mode-hook (lambda () (visual-line-mode 1) (face-remap-add-relative 'variable-pitch :family "Georgia" :height 1.2))))
-
-;; DjVu Support
-(use-package! djvu3
-  :mode ("\\.djvu\\'" . djvu-dummy-mode)
-  :config (add-hook 'djvu-read-mode-hook #'auto-revert-mode))
-#+end_src
-
-* Catppuccin Theme Configuration
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Theme Settings
-
-Configure the Catppuccin theme for a beautiful, cohesive look.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Theme Settings][Theme Settings:1]]
 (after! catppuccin-theme
   ;; Use the Mocha flavor (dark, warm) - alternatives: latte, frappe, macchiato
   (setq catppuccin-flavor 'mocha
@@ -1452,14 +1008,9 @@ Configure the Catppuccin theme for a beautiful, cohesive look.
 
 (map! :leader
       :desc "Toggle light/dark theme" "t t" #'+toggle-light-dark-theme)
-#+end_src
+;; Theme Settings:1 ends here
 
-* Editing & Navigation Enhancements
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Editing & Navigation Enhancements][Editing & Navigation Enhancements:1]]
 ;; Focus Mode - Dim surrounding text
 (after! focus
   (setq focus-mode-to-thing '((prog-mode . defun) (text-mode . paragraph) (org-mode . org-element))))
@@ -1519,18 +1070,9 @@ Configure the Catppuccin theme for a beautiful, cohesive look.
 (after! consult-dir (setq consult-dir-project-list-function #'consult-dir-projectile-dirs))
 (map! :leader :prefix "f" :desc "Consult directory" "D" #'consult-dir)
 (after! wgrep (setq wgrep-auto-save-buffer t wgrep-change-readonly-file t))
-#+end_src
+;; Editing & Navigation Enhancements:1 ends here
 
-* Live Preview Configuration
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-
-
-** Diagram Preview Utilities
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Diagram Preview Utilities][Diagram Preview Utilities:1]]
 (defvar +diagram-auto-preview t "Toggle for side-window diagram preview.")
 
 (defun +diagram/render-on-save (command ext)
@@ -1544,7 +1086,7 @@ Configure the Catppuccin theme for a beautiful, cohesive look.
 
 (after! plantuml-mode
   (setq plantuml-default-exec-mode 'executable)
-  (add-hook 'plantuml-mode-hook (lambda () (add-hook 'after-save-hook (lambda () (+diagram/render-on-save "plantuml -tsvg %s -p > %s" "svg")) nil t))))
+  (add-hook 'plantuml-mode-hook (lambda () (add-hook 'after-save-hook (lambda () (+diagram/render-on-save "plantuml -tsvg %s" "svg")) nil t))))
 
 (after! mermaid-mode
   (add-hook 'mermaid-mode-hook (lambda () (add-hook 'after-save-hook (lambda () (+diagram/render-on-save "mmdc -i %s -o %s" "png")) nil t))))
@@ -1559,39 +1101,22 @@ Configure the Catppuccin theme for a beautiful, cohesive look.
   (message "Diagram auto-preview: %s" (if +diagram-auto-preview "enabled" "disabled")))
 
 (map! :leader :desc "Toggle auto-preview" "t P" #'+diagram/toggle-auto-preview)
-#+end_src
+;; Diagram Preview Utilities:1 ends here
 
-
-* Treemacs (Project Tree)
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Treemacs Configuration
-
-Project explorer with file icons.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Treemacs Configuration][Treemacs Configuration:1]]
 (after! treemacs
   ;; Make treemacs follow the currently selected file and project
   (treemacs-follow-mode t)
   (treemacs-project-follow-mode t) ;; Ensure we switch projects automatically
-  ;; (treemacs-filewatch-mode t) ;; Disabled to prevent file descriptor leak
+  (treemacs-filewatch-mode t)
   (setq treemacs-width 35)
 
   ;; Keybinding to toggle treemacs (use Doom's smart toggle if available, otherwise standard)
   (map! :leader
         :desc "Toggle Treemacs" "o p" #'+treemacs/toggle))
-#+end_src
+;; Treemacs Configuration:1 ends here
 
-
-
-* Remote Sync & Deployment
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Remote Sync & Deployment][Remote Sync & Deployment:1]]
 ;; TRAMP Configuration
 (after! tramp
   (setq tramp-default-method "ssh"
@@ -1606,14 +1131,9 @@ Project explorer with file icons.
       :desc "Upload file"   "u" #'ssh-deploy-upload-handler
       :desc "Download file" "d" #'ssh-deploy-download-handler
       :desc "Diff remote"   "D" #'ssh-deploy-diff-handler)
-#+end_src
+;; Remote Sync & Deployment:1 ends here
 
-* Clojure Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Clojure Development][Clojure Development:1]]
 (after! cider
   (setq cider-repl-display-help-banner nil cider-repl-pop-to-buffer-on-connect 'display-only
         cider-repl-use-pretty-printing t cider-repl-history-size 1000
@@ -1634,31 +1154,19 @@ Project explorer with file icons.
       (:prefix ("e" . "eval") "d" #'cider-eval-defun-at-point "D" #'cider-pprint-eval-defun-to-comment)
       (:prefix ("r" . "repl") "c" #'cider-repl-clear-buffer "i" #'cider-interrupt "l" #'cider-load-buffer)
       (:prefix ("n" . "ns") "r" #'cider-ns-refresh "b" #'cider-browse-ns))
-#+end_src
+;; Clojure Development:1 ends here
 
-* Go Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Go Development][Go Development:1]]
 (after! go-mode
-  (setq gofmt-command "goimports" go-ts-mode-indent-offset 4 tab-width 4 indent-tabs-mode t)
-  ;; Disable flycheck for Go (resource hog, gopls handles diagnostics)
-  (add-hook 'go-mode-hook (lambda () (flycheck-mode -1))))
+  (setq gofmt-command "goimports" go-ts-mode-indent-offset 4 tab-width 4 indent-tabs-mode t))
 
 (map! :map go-mode-map :localleader
       (:prefix ("t" . "test") "f" #'+go/test-single "F" #'+go/test-file "a" #'+go/test-all)
       (:prefix ("b" . "build") "b" #'+go/build "r" #'+go/run)
       (:prefix ("c" . "code") "i" #'go-import-add "u" #'go-remove-unused-imports "s" #'eglot-code-actions))
-#+end_src
+;; Go Development:1 ends here
 
-* Zig Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Zig Development][Zig Development:1]]
 (after! zig-mode
   (setq zig-format-on-save t zig-zig-bin "zig")
   (add-hook 'zig-mode-hook (lambda () (setq-local tab-width 4 indent-tabs-mode nil))))
@@ -1666,14 +1174,9 @@ Project explorer with file icons.
 (map! :map zig-mode-map :localleader
       (:prefix ("b" . "build") "b" #'zig-compile "r" #'zig-run "t" #'zig-test)
       (:prefix ("c" . "code") "f" #'zig-format-buffer "a" #'eglot-code-actions))
-#+end_src
+;; Zig Development:1 ends here
 
-* Python Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Python Development][Python Development:1]]
 (after! python
   (setq python-shell-interpreter "python3"
         python-indent-offset 4
@@ -1683,14 +1186,9 @@ Project explorer with file icons.
       (:prefix ("t" . "test") "f" #'python-pytest-function "F" #'python-pytest-file "a" #'python-pytest)
       (:prefix ("v" . "venv") "a" #'pyvenv-activate "d" #'pyvenv-deactivate "w" #'pyvenv-workon)
       (:prefix ("r" . "repl") "r" #'+python/open-repl "b" #'python-shell-send-buffer "s" #'python-shell-send-region))
-#+end_src
+;; Python Development:1 ends here
 
-* Rust Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Rust Development][Rust Development:1]]
 (after! rustic
   (setq rustic-lsp-server 'rust-analyzer
         rustic-format-on-save t
@@ -1699,14 +1197,9 @@ Project explorer with file icons.
 (map! :map rustic-mode-map :localleader
       (:prefix ("c" . "cargo") "b" #'rustic-cargo-build "r" #'rustic-cargo-run "t" #'rustic-cargo-test "c" #'rustic-cargo-clippy)
       (:prefix ("t" . "test") "t" #'rustic-cargo-current-test "a" #'rustic-cargo-test))
-#+end_src
+;; Rust Development:1 ends here
 
-* JS/TS Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*JS/TS Development][JS/TS Development:1]]
 (after! js2-mode (setq js2-basic-offset 2 js-indent-level 2))
 (after! typescript-mode (setq typescript-indent-level 2))
 
@@ -1717,14 +1210,9 @@ Project explorer with file icons.
 (map! :map (js2-mode-map typescript-mode-map typescript-tsx-mode-map) :localleader
       (:prefix ("t" . "test") "f" #'jest-file "t" #'jest-function)
       (:prefix ("n" . "npm") "i" #'npm-mode-npm-install "r" #'npm-mode-npm-run))
-#+end_src
+;; JS/TS Development:1 ends here
 
-* Web Frameworks (Angular, Vue, Svelte, Bun)
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Web Frameworks (Angular, Vue, Svelte, Bun)][Web Frameworks (Angular, Vue, Svelte, Bun):1]]
 (use-package! add-node-modules-path
   :hook ((js2-mode rjsx-mode typescript-mode typescript-tsx-mode ng2-mode vue-mode svelte-mode) . add-node-modules-path))
 
@@ -1751,14 +1239,9 @@ Project explorer with file icons.
 (defun +bun/run-cmd (cmd) (interactive) (async-shell-command (format "bun %s" (if (string-empty-p cmd) (read-string "Bun command: ") cmd))))
 (map! :map (js2-mode-map typescript-mode-map typescript-tsx-mode-map ng2-ts-mode-map) :localleader
       (:prefix ("b" . "bun") "i" (lambda () (interactive) (+bun/run-cmd "install")) "r" (lambda () (interactive) (+bun/run-cmd (format "run %s" (read-string "Script: ")))) "t" (lambda () (interactive) (+bun/run-cmd "test"))))
-#+end_src
+;; Web Frameworks (Angular, Vue, Svelte, Bun):1 ends here
 
-* C/C++ Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*C/C++ Development][C/C++ Development:1]]
 (after! cc-mode
   (setq c-basic-offset 4
         c-default-style '((java-mode . "java") (c-mode . "linux") (c++-mode . "stroustrup") (other . "gnu"))))
@@ -1766,44 +1249,25 @@ Project explorer with file icons.
 (map! :map (c-mode-map c++-mode-map) :localleader
       (:prefix ("c" . "compile") "c" #'compile "r" #'recompile)
       (:prefix ("s" . "switch") "h" #'ff-find-other-file))
-#+end_src
+;; C/C++ Development:1 ends here
 
-* Ruby Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Ruby Development][Ruby Development:1]]
 (after! ruby-mode (setq ruby-insert-encoding-magic-comment nil ruby-deep-indent-paren nil))
 (map! :map ruby-mode-map :localleader
       (:prefix ("t" . "test") "f" #'rspec-verify "t" #'rspec-verify-single "a" #'rspec-verify-all)
       (:prefix ("r" . "rails") "c" #'inf-ruby-console-rails "s" #'projectile-rails-server))
-#+end_src
+;; Ruby Development:1 ends here
 
-* Haskell Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Haskell Development][Haskell Development:1]]
 (after! haskell-mode
   (setq haskell-stylish-on-save t haskell-process-suggest-remove-import-lines t))
 
 (map! :map haskell-mode-map :localleader
       (:prefix ("r" . "repl") "l" #'haskell-process-load-file "r" #'haskell-interactive-switch)
       (:prefix ("i" . "imports") "a" #'haskell-add-import "s" #'haskell-sort-imports))
-#+end_src
+;; Haskell Development:1 ends here
 
-* Java Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Java Configuration
-
-Enhanced Java development with jdtls.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Java Configuration][Java Configuration:1]]
 (after! java-mode
   (setq c-basic-offset 4))
 
@@ -1815,20 +1279,9 @@ Enhanced Java development with jdtls.
        :desc "Run" "r" #'recompile)
       (:prefix ("t" . "test")
        :desc "Test class" "c" #'+java/run-test))
+;; Java Configuration:1 ends here
 
-
-#+end_src
-
-* Lua Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Lua Configuration
-
-Enhanced Lua development.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Lua Configuration][Lua Configuration:1]]
 (after! lua-mode
   (setq lua-indent-level 2
         lua-indent-nested-block-content-align nil))
@@ -1840,20 +1293,9 @@ Enhanced Lua development.
        :desc "Send buffer" "b" #'lua-send-buffer
        :desc "Send region" "r" #'lua-send-region
        :desc "Start REPL" "s" #'lua-start-process))
+;; Lua Configuration:1 ends here
 
-
-#+end_src
-
-* Shell Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Shell Configuration
-
-Enhanced shell script development.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Shell Configuration][Shell Configuration:1]]
 (after! sh-mode
   (setq sh-basic-offset 2
         sh-indentation 2))
@@ -1864,20 +1306,9 @@ Enhanced shell script development.
       (:prefix ("r" . "run")
        :desc "Execute buffer" "b" #'executable-interpret
        :desc "Execute region" "r" #'sh-execute-region))
+;; Shell Configuration:1 ends here
 
-
-#+end_src
-
-* Web Development
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Web Mode Configuration
-
-Enhanced HTML/CSS/Web development.
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Web Mode Configuration][Web Mode Configuration:1]]
 (after! web-mode
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
@@ -1891,18 +1322,9 @@ Enhanced HTML/CSS/Web development.
 (after! emmet-mode
   (add-hook 'web-mode-hook #'emmet-mode)
   (add-hook 'css-mode-hook #'emmet-mode))
+;; Web Mode Configuration:1 ends here
 
-
-#+end_src
-
-* AI Integration
-:PROPERTIES:
-:header-args: :tangle config.el :comments link
-:END:
-
-** Claude Code Integration
-
-#+begin_src emacs-lisp
+;; [[file:config.org::*Claude Code Integration][Claude Code Integration:1]]
 (use-package! claude-code
   :init
   (map! :leader :prefix ("m" . "AI")
@@ -1914,4 +1336,4 @@ Enhanced HTML/CSS/Web development.
         claude-code-display-window-fn
         (lambda (buf) (display-buffer buf '((display-buffer-in-side-window) (side . right) (window-width . 0.45)))))
   (claude-code-mode 1))
-#+end_src
+;; Claude Code Integration:1 ends here

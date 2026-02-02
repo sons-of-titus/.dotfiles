@@ -5,6 +5,7 @@ return {
     { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float terminal" },
     { "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Horizontal terminal" },
     { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=80<cr>", desc = "Vertical terminal" },
+    { "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", desc = "Toggle LazyGit" },
   },
   config = function()
     require("toggleterm").setup({
@@ -31,10 +32,26 @@ return {
       },
     })
 
+    -- LazyGit Integration
+    local Terminal = require("toggleterm.terminal").Terminal
+    local lazygit = Terminal:new({ 
+        cmd = "lazygit", 
+        hidden = true,
+        direction = "float",
+        float_opts = {
+            border = "curved",
+        },
+    })
+
+    function _lazygit_toggle()
+      lazygit:toggle()
+    end
+
     -- Terminal keymaps
     function _G.set_terminal_keymaps()
       local opts = {buffer = 0}
-      vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+      -- Changed to <Esc><Esc> to avoid conflict with standard Esc usage
+      vim.keymap.set('t', '<esc><esc>', [[<C-\><C-n>]], opts)
       vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
       vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
       vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)

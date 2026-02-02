@@ -8,25 +8,22 @@ return {
                 header = {
                     "",
                     "",
-                    "                                                       ",
-                    "                                                       ",
-                    "                                                       ",
-                    "                                                       ",
-                    "                                                       ",
-                    "                                                       ",
-                    " ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
-                    " ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
-                    " ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
-                    " ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
-                    " ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
-                    " ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
-                    "                                                       ",
-                    "                                                       ",
-                    "                                                       ",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "██████╗ ██╗      █████╗ ███████╗██████╗ ██╗  ██╗███████╗███╗   ███╗██╗   ██╗",
+                    "██╔══██╗██║     ██╔══██╗██╔════╝██╔══██╗██║  ██║██╔════╝████╗ ████║╚██╗ ██╔╝",
+                    "██████╔╝██║     ███████║███████╗██████╔╝███████║█████╗  ██╔████╔██║ ╚████╔╝ ",
+                    "██╔══██╗██║     ██╔══██║╚════██║██╔═══╝ ██╔══██║██╔══╝  ██║╚██╔╝██║  ╚██╔╝  ",
+                    "██████╔╝███████╗██║  ██║███████║██║     ██║  ██║███████╗██║ ╚═╝ ██║   ██║   ",
+                    "╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝   ╚═╝   ",
+                    "",
+                    "",
                 },
                 center = {
                     {
-                        icon = "   ",
+                        icon = "  ",
                         icon_hl = "DashboardIcon",
                         desc = "Find File           ",
                         desc_hl = "DashboardDesc",
@@ -36,7 +33,7 @@ return {
                         action = "lua require('telescope.builtin').find_files()"
                     },
                     {
-                        icon = "   ",
+                        icon = "  ",
                         icon_hl = "DashboardIcon",
                         desc = "Recent Files        ",
                         desc_hl = "DashboardDesc",
@@ -46,17 +43,17 @@ return {
                         action = "lua require('telescope.builtin').oldfiles()"
                     },
                     {
-                        icon = "   ",
+                        icon = "  ",
                         icon_hl = "DashboardIcon",
                         desc = "Find Text           ",
                         desc_hl = "DashboardDesc",
-                        key = "g",
+                        key = "t",
                         key_hl = "DashboardKey",
                         key_format = " [%s]",
                         action = "lua require('telescope.builtin').live_grep()"
                     },
                     {
-                        icon = "   ",
+                        icon = "  ",
                         icon_hl = "DashboardIcon",
                         desc = "Projects            ",
                         desc_hl = "DashboardDesc",
@@ -65,7 +62,7 @@ return {
                         key_format = " [%s]",
                         action = function()
                           local ok, _ = pcall(function()
-                            require("telescope").extensions.project.project{}
+                            require("telescope").extensions.projects.projects{}
                           end)
                           if not ok then
                             vim.cmd("Telescope projects")
@@ -73,7 +70,7 @@ return {
                         end
                     },
                     {
-                        icon = "   ",
+                        icon = "  ",
                         icon_hl = "DashboardIcon",
                         desc = "New File            ",
                         desc_hl = "DashboardDesc",
@@ -83,17 +80,17 @@ return {
                         action = "enew"
                     },
                     {
-                        icon = "   ",
+                        icon = "  ",
                         icon_hl = "DashboardIcon",
                         desc = "Configuration       ",
                         desc_hl = "DashboardDesc",
-                        key = "c",
+                        key = "C",
                         key_hl = "DashboardKey",
                         key_format = " [%s]",
                         action = "edit ~/.config/nvim/init.lua"
                     },
                     {
-                        icon = "   ",
+                        icon = "  ",
                         icon_hl = "DashboardIcon",
                         desc = "Lazy Plugin Manager ",
                         desc_hl = "DashboardDesc",
@@ -103,7 +100,7 @@ return {
                         action = "Lazy"
                     },
                     {
-                        icon = "   ",
+                        icon = "  ",
                         icon_hl = "DashboardIcon",
                         desc = "Quit Neovim         ",
                         desc_hl = "DashboardDesc",

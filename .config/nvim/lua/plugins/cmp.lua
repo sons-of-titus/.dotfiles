@@ -9,6 +9,7 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "L3MON4D3/LuaSnip",
     "rafamadriz/friendly-snippets",
+    "PaterJason/cmp-conjure",
   },
   config = function()
     local cmp = require("cmp")
@@ -49,6 +50,7 @@ return {
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
+        { name = "conjure" },
         { name = "luasnip" },
       }, {
         { name = "buffer" },
@@ -58,6 +60,7 @@ return {
         format = function(entry, item)
           item.menu = ({
             nvim_lsp = "[LSP]",
+            conjure = "[Conjure]",
             luasnip = "[Snippet]",
             buffer = "[Buffer]",
             path = "[Path]",

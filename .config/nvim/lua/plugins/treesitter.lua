@@ -9,7 +9,10 @@ return {
     end
     
     configs.setup({
-      ensure_installed = { "c", "go", "zig", "lua", "vim", "vimdoc", "query" },
+      ensure_installed = {
+        "c", "cpp", "go", "zig", "lua", "vim", "vimdoc", "query",
+        "rust", "haskell", "clojure", "kotlin",
+      },
       sync_install = false,
       auto_install = true,
       highlight = { 

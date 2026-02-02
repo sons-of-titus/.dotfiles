@@ -1,0 +1,16 @@
+[font]
+normal = ["FiraCode Nerd Font Mono", "FiraCode Nerd Font", "Fira Code", "Monaco"]
+size = 15.0
+
+[window]
+decorations = "full"
+opacity = 0.95
+blur = 10.0
+title-hidden = false
+
+[cursor]
+vfx_mode = "railgun"
+vfx_opacity = 200.0
+vfx_particle_lifetime = 1.2
+vfx_particle_density = 7.0
+vfx_particle_speed = 10.0

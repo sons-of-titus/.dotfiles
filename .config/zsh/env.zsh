@@ -21,10 +21,25 @@ export PATH="$HOME/.local/bin:$PATH"
 # Emacs path
 export PATH="$HOME/.config/emacs/bin:$PATH"
 
-# NVM
+# NVM (Lazy Load)
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+lazy_load_nvm() {
+  # Unset placeholder functions
+  unset -f nvm node npm pnpm yarn bun
+  
+  # Load NVM
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  
+  # Execute the requested command
+  if [ -n "$1" ]; then
+    "$@"
+  fi
+}
+
+for cmd in nvm node npm pnpm yarn bun; do
+  eval "$cmd() { lazy_load_nvm \"\$0\" \"\$@\" ; }"
+done
 
 # Bun
 export BUN_INSTALL="$HOME/.bun"
@@ -39,9 +54,24 @@ if command -v opam &> /dev/null; then
   eval $(opam env)
 fi
 
-# SDKMAN (must be at the end)
+# SDKMAN (Lazy Load)
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+lazy_load_sdkman() {
+  # Unset placeholder functions
+  unset -f sdk java javac gradle mvn ad ant
+  
+  # Load SDKMAN
+  [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+  
+  # Execute the requested command
+  if [ -n "$1" ]; then
+    "$@"
+  fi
+}
+
+for cmd in sdk java javac gradle mvn ad ant; do
+  eval "$cmd() { lazy_load_sdkman \"\$0\" \"\$@\" ; }"
+done
 
 
-
+export PATH="/Users/mohamedabdellahi/.antigravity/antigravity/bin:$PATH"

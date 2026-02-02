@@ -1,5 +1,6 @@
 return {
   "ahmedkhalf/project.nvim",
+  event = "VeryLazy",
   dependencies = {
     "nvim-telescope/telescope.nvim",
   },
@@ -27,6 +28,6 @@ return {
     end)
   end,
   keys = {
-    { "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Projects" },
+    { "<leader>p", "<cmd>Telescope projects<cr>", desc = "Open Projects" },
   },
 }
