@@ -514,6 +514,7 @@
   ;; Exclude modes where it causes issues
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode)  ;; Python is whitespace-sensitive
+  (add-to-list 'aggressive-indent-excluded-modes 'go-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'makefile-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'makefile-gmake-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'yaml-mode)
@@ -1086,7 +1087,7 @@
 
 (after! plantuml-mode
   (setq plantuml-default-exec-mode 'executable)
-  (add-hook 'plantuml-mode-hook (lambda () (add-hook 'after-save-hook (lambda () (+diagram/render-on-save "plantuml -tsvg %s" "svg")) nil t))))
+  (add-hook 'plantuml-mode-hook (lambda () (add-hook 'after-save-hook (lambda () (+diagram/render-on-save "plantuml -tsvg %s -p > %s" "svg")) nil t))))
 
 (after! mermaid-mode
   (add-hook 'mermaid-mode-hook (lambda () (add-hook 'after-save-hook (lambda () (+diagram/render-on-save "mmdc -i %s -o %s" "png")) nil t))))
@@ -1108,7 +1109,7 @@
   ;; Make treemacs follow the currently selected file and project
   (treemacs-follow-mode t)
   (treemacs-project-follow-mode t) ;; Ensure we switch projects automatically
-  (treemacs-filewatch-mode t)
+  ;; (treemacs-filewatch-mode t) ;; Disabled to prevent file descriptor leak
   (setq treemacs-width 35)
 
   ;; Keybinding to toggle treemacs (use Doom's smart toggle if available, otherwise standard)
@@ -1158,7 +1159,9 @@
 
 ;; [[file:config.org::*Go Development][Go Development:1]]
 (after! go-mode
-  (setq gofmt-command "goimports" go-ts-mode-indent-offset 4 tab-width 4 indent-tabs-mode t))
+  (setq gofmt-command "goimports" go-ts-mode-indent-offset 4 tab-width 4 indent-tabs-mode t)
+  ;; Disable flycheck for Go (resource hog, gopls handles diagnostics)
+  (add-hook 'go-mode-hook (lambda () (flycheck-mode -1))))
 
 (map! :map go-mode-map :localleader
       (:prefix ("t" . "test") "f" #'+go/test-single "F" #'+go/test-file "a" #'+go/test-all)

@@ -12,3 +12,6 @@ setopt ALWAYS_TO_END           # Move cursor after completion
 
 # Enable advanced globbing
 setopt EXTENDED_GLOB           # Use advanced wildcards
+
+# Prompt options
+setopt PROMPT_SUBST            # Enable parameter expansion in prompts

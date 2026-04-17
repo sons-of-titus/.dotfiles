@@ -7,6 +7,9 @@ export QT_SCALE_FACTOR=0.8
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+# Rust/Cargo configuration
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Locale
 export LC_ALL=en_US.UTF-8
 

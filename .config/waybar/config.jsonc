@@ -1,0 +1,59 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 26,
+    "margin-top": 4,
+    "margin-left": 8,
+    "margin-right": 8,
+    "spacing": 2,
+    "exclusive": true,
+
+    "include": [
+        "~/.config/waybar/modules/workspaces.jsonc",
+        "~/.config/waybar/modules/clock.jsonc",
+        "~/.config/waybar/modules/cpu.jsonc",
+        "~/.config/waybar/modules/memory.jsonc",
+        "~/.config/waybar/modules/temperature.jsonc",
+        "~/.config/waybar/modules/audio.jsonc",
+        "~/.config/waybar/modules/backlight.jsonc",
+        "~/.config/waybar/modules/battery.jsonc",
+        "~/.config/waybar/modules/weather.jsonc",
+        "~/.config/waybar/modules/music.jsonc"
+    ],
+
+    "modules-left": [
+        "hyprland/workspaces",
+        "custom/music"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/weather",
+        "group/stats",
+        "wireplumber",
+        "backlight",
+        "battery",
+        "tray"
+    ],
+
+    "group/stats": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 250,
+            "children-class": "stat-child",
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "cpu",
+            "memory",
+            "temperature"
+        ]
+    },
+
+    "tray": {
+        "icon-size": 15,
+        "spacing": 6,
+        "show-passive-items": true
+    }
+}

@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermOpen", "TermEnter" }, {
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
   callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
+    vim.hl.on_yank({ higroup = "IncSearch", timeout = 200 })
   end,
 })
 
@@ -100,6 +100,31 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "json", "jsonc", "json5" },
   callback = function()
     vim.opt_local.conceallevel = 0
+  end,
+})
+
+-- SQL and Database specific settings -------------------------------------------
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("sql_settings"),
+  pattern = { "sql", "mysql", "plsql" },
+  callback = function()
+    -- Enable dadbod completion for SQL files
+    require("cmp").setup.buffer({
+      sources = {
+        { name = "vim-dadbod-completion" },
+        { name = "buffer" },
+      },
+    })
+  end,
+})
+
+-- Close database UI with q -----------------------------------------------------
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("dbui_close"),
+  pattern = { "dbui", "dbout" },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
 

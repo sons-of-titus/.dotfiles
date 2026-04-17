@@ -10,6 +10,7 @@ return {
     "L3MON4D3/LuaSnip",
     "rafamadriz/friendly-snippets",
     "PaterJason/cmp-conjure",
+    "kristijanhusak/vim-dadbod-completion",
   },
   config = function()
     local cmp = require("cmp")
@@ -50,6 +51,7 @@ return {
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
+        { name = "vim-dadbod-completion" },
         { name = "conjure" },
         { name = "luasnip" },
       }, {
@@ -60,6 +62,7 @@ return {
         format = function(entry, item)
           item.menu = ({
             nvim_lsp = "[LSP]",
+            ["vim-dadbod-completion"] = "[DB]",
             conjure = "[Conjure]",
             luasnip = "[Snippet]",
             buffer = "[Buffer]",

@@ -1,0 +1,10 @@
+{
+    "custom/music": {
+        "exec": "~/.config/waybar/scripts/music.sh",
+        "interval": 1,
+        "return-type": "json",
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl volume 0.05+",
+        "on-scroll-down": "playerctl volume 0.05-"
+    }
+}

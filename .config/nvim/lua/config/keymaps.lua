@@ -14,6 +14,12 @@ set("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit all" })
 set("n", "n", "nzzzv", { desc = "Next search result" })
 set("n", "N", "Nzzzv", { desc = "Previous search result" })
 
+-- Disable Arrow Keys for Normal Mode
+set("n", "<Up>", "<Nop>")
+set("n", "<Down>", "<Nop>")
+set("n", "<Left>", "<Nop>")
+set("n", "<Right>", "<Nop>")
+
 -- Clear search highlight with Esc
 set("n", "<Esc>", "<cmd>nohlsearch<cr><Esc>", { desc = "Clear search highlight" })
 
@@ -37,8 +43,6 @@ set("n", "J", "mzJ`z", { desc = "Join lines" })
 set("v", "<", "<gv", { desc = "Indent left" })
 set("v", ">", ">gv", { desc = "Indent right" })
 
--- Select all
-set("n", "<leader>aa", "ggVG", { desc = "Select all" })
 
 -- Replace word under cursor across file
 set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word" })
@@ -50,12 +54,8 @@ set("n", "<leader>Y", '"+Y', { desc = "Yank line to system clipboard" })
 set("n", "<leader>v", '"+p', { desc = "Paste from system clipboard" })
 set("n", "<leader>V", '"+P', { desc = "Paste before from system clipboard" })
 
--- Yank to end of line
-set("n", "Y", "y$", { desc = "Yank to end of line" })
 
 -- Delete/Paste without losing register
-set("n", "<leader>D", '"_d', { desc = "Delete without yanking" })
-set("v", "<leader>D", '"_d', { desc = "Delete without yanking" })
 set("x", "p", '"_dP', { desc = "Paste without yanking" })
 
 -- 5. UI Toggles ---------------------------------------------------------------

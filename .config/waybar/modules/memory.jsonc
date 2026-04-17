@@ -1,0 +1,7 @@
+{
+    "memory": {
+        "format": "󰾆 {used:.0f}G",
+        "interval": 5,
+        "tooltip-format": "RAM {used:.1f} / {total:.1f} GiB"
+    }
+}

@@ -1,0 +1,225 @@
+/* ── Rose Pine ─────────────────────────────────── */
+@define-color base    #191724;
+@define-color surface #1f1d2e;
+@define-color overlay #26233a;
+@define-color muted   #6e6a86;
+@define-color subtle  #908caa;
+@define-color text    #e0def4;
+@define-color love    #eb6f92;
+@define-color gold    #f6c177;
+@define-color rose    #ebbcba;
+@define-color pine    #31748f;
+@define-color foam    #9ccfd8;
+@define-color iris    #c4a7e7;
+
+/* ── Reset ─────────────────────────────────────── */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", monospace;
+    font-size: 11px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transition: background-color 150ms ease, color 150ms ease;
+}
+
+/* ── Bar ───────────────────────────────────────── */
+window#waybar {
+    background: alpha(@base, 0.92);
+    color: @text;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px alpha(#000000, 0.4);
+}
+
+/* ── Section padding ───────────────────────────── */
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 0 4px;
+}
+
+/* ── Shared pill ───────────────────────────────── */
+#workspaces,
+#clock,
+#group-stats,
+#pulseaudio,
+#backlight,
+#battery,
+#tray {
+    margin: 2px 2px;
+    border-radius: 6px;
+    padding: 0 8px;
+    background: alpha(@surface, 0.75);
+}
+
+/* ── Workspaces ────────────────────────────────── */
+#workspaces,
+#hyprland-workspaces {
+    padding: 0 2px;
+}
+
+#workspaces button,
+#hyprland-workspaces button {
+    padding: 0 6px;
+    margin: 2px 1px;
+    color: @muted;
+    background: alpha(@surface, 0.5);
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    min-height: 0;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+/* empty workspaces */
+#workspaces button.empty,
+#hyprland-workspaces button.empty {
+    background: transparent;
+    color: @subtle;
+}
+
+/* occupied workspaces */
+#workspaces button,
+#hyprland-workspaces button {
+    background: alpha(@surface, 0.6);
+    color: @muted;
+}
+
+/* active/focused workspace */
+#workspaces button.active,
+#workspaces button.focused,
+#hyprland-workspaces button.active,
+#hyprland-workspaces button.focused {
+    color: @base;
+    background: @rose;
+    box-shadow: 0 0 8px alpha(@rose, 0.5);
+}
+
+/* visible workspace */
+#workspaces button.visible,
+#hyprland-workspaces button.visible {
+    border-bottom: 2px solid @foam;
+}
+
+/* urgent workspace */
+#workspaces button.urgent,
+#hyprland-workspaces button.urgent {
+    color: @love;
+}
+
+#clock {
+    color: @rose;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+}
+
+#clock:hover {
+    background: @overlay;
+    color: @text;
+}
+
+/* ── Stats group ───────────────────────────────── */
+#group-stats {
+    background: alpha(@surface, 0.75);
+    padding: 0 6px;
+}
+
+#group-stats:hover {
+    background: @overlay;
+}
+
+#cpu,
+#memory,
+#temperature {
+    padding: 0 4px;
+    background: transparent;
+    font-weight: 600;
+}
+
+#cpu        { color: @foam; }
+#memory     { color: @iris; }
+#temperature { color: @gold; }
+
+#temperature.critical {
+    color: @love;
+    animation: blink 1s step-start infinite;
+}
+
+/* ── Wireplumber ─────────────────────────────────── */
+#wireplumber {
+    color: @pine;
+}
+
+#wireplumber:hover  { background: @overlay; }
+#wireplumber.muted  { color: @muted; }
+
+#wireplumber.source,
+#wireplumber.sink  { color: @foam; }
+
+/* ── Backlight ──────────────────────────────────── */
+#backlight {
+    color: @subtle;
+}
+
+#backlight:hover { background: @overlay; color: @gold; }
+
+/* ── Battery ────────────────────────────────────── */
+#battery {
+    color: @foam;
+}
+
+#battery:hover    { background: @overlay; }
+#battery.charging { color: @foam; }
+#battery.good     { color: @foam; }
+#battery.warning  { color: @gold; }
+
+#battery.critical {
+    color: @love;
+    animation: blink 1s step-start infinite;
+}
+
+/* ── Tray ───────────────────────────────────────── */
+#tray {
+    padding: 0 6px;
+}
+
+#tray:hover { background: @overlay; }
+
+#tray > .passive       { -gtk-icon-effect: dim; }
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background: alpha(@love, 0.2);
+    border-radius: 4px;
+}
+
+/* ── Blink ──────────────────────────────────────── */
+@keyframes blink {
+    50% { opacity: 0.35; }
+}
+
+/* ── Weather ──────────────────────────────────────── */
+#custom-weather {
+    color: @foam;
+}
+
+#custom-weather:hover { background: @overlay; }
+
+#custom-weather.weather-offline {
+    color: @muted;
+}
+
+/* ── Music ─────────────────────────────────────────── */
+#custom-music {
+    color: @rose;
+}
+
+#custom-music:hover { background: @overlay; }
+
+#custom-music.music-paused {
+    color: @muted;
+}
+
+#custom-music.music-offline {
+    opacity: 0;
+}

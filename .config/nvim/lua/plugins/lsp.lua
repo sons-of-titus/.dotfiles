@@ -12,17 +12,50 @@ return {
 
     require("mason-lspconfig").setup({
       ensure_installed = {
-        "clangd",
-        "gopls",
-        "zls",
-        "lua_ls",
-        "rust_analyzer",
-        "clojure_lsp",
-
-        "kotlin_language_server",
-        "angularls", -- Angular
-        "ts_ls", -- TypeScript/Next.js
-        "eslint", -- ESLint LSP
+        -- Systems Programming
+        "clangd",          -- C/C++
+        "rust_analyzer",   -- Rust
+        "zls",             -- Zig
+        
+        -- General Purpose Languages
+        "gopls",           -- Go
+        "pyright",         -- Python
+        "jdtls",           -- Java
+        "hls",             -- Haskell
+        "ocamllsp",        -- OCaml
+        "solargraph",      -- Ruby
+        "clojure_lsp",     -- Clojure
+        "kotlin_language_server", -- Kotlin
+        
+        -- Scripting
+        "lua_ls",          -- Lua
+        "bashls",          -- Bash
+        
+        -- Web Development
+        "ts_ls",           -- TypeScript/JavaScript
+        "eslint",          -- ESLint
+        "angularls",       -- Angular
+        "volar",           -- Vue
+        "svelte",          -- Svelte
+        "emmet_ls",        -- HTML/CSS Emmet
+        "html",            -- HTML
+        "cssls",           -- CSS
+        "tailwindcss",     -- Tailwind CSS
+        "jsonls",          -- JSON
+        "graphql",         -- GraphQL
+        
+        -- DevOps/Config
+        "dockerls",        -- Dockerfile
+        "docker_compose_language_service", -- Docker Compose
+        "yamlls",          -- YAML
+        "taplo",           -- TOML
+        "lemminx",         -- XML
+        
+        -- Build Systems
+        "cmake",           -- CMake
+        
+        -- Data Formats
+        "bufls",           -- Protocol Buffers
       },
       automatic_installation = true,
     })
@@ -53,7 +86,7 @@ return {
       nmap("K", vim.lsp.buf.hover, "Hover Documentation")
       nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
       nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-      nmap("<leader>ds", vim.lsp.buf.document_symbol, "[D]ocument [S]ymbols")
+      nmap("<leader>Ds", vim.lsp.buf.document_symbol, "[D]ocument [S]ymbols")
       nmap("<leader>Ws", vim.lsp.buf.workspace_symbol, "[W]orkspace [S]ymbols")
       
       -- Diagnostic keymaps

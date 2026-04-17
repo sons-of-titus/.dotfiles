@@ -1,21 +1,21 @@
 return {
   "nvim-telescope/telescope.nvim",
-  branch = "0.1.x",
+  version = "*",
   cmd = "Telescope",
-  dependencies = { 
+  dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-telescope/telescope-dap.nvim",
   },
   keys = {
-    { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find Files" },
-    { "<leader>fg", function() require("telescope.builtin").git_files() end, desc = "Git Files" },
-    { "<leader>fw", function() require("telescope.builtin").live_grep() end, desc = "Live Grep" },
-    { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Buffers" },
-    { "<leader>fr", function() require("telescope.builtin").oldfiles() end, desc = "Recent Files" },
-    { "<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Help Tags" },
-    { "<leader>fc", function() require("telescope.builtin").commands() end, desc = "Commands" },
-    { "<leader>fk", function() require("telescope.builtin").keymaps() end, desc = "Keymaps" },
+    { "<leader>ff", function() require("telescope.builtin").find_files() end,  desc = "Find Files" },
+    { "<leader>fg", function() require("telescope.builtin").git_files() end,   desc = "Git Files" },
+    { "<leader>fw", function() require("telescope.builtin").live_grep() end,   desc = "Live Grep" },
+    { "<leader>fb", function() require("telescope.builtin").buffers() end,     desc = "Buffers" },
+    { "<leader>fr", function() require("telescope.builtin").oldfiles() end,    desc = "Recent Files" },
+    { "<leader>fh", function() require("telescope.builtin").help_tags() end,   desc = "Help Tags" },
+    { "<leader>fc", function() require("telescope.builtin").commands() end,    desc = "Commands" },
+    { "<leader>fk", function() require("telescope.builtin").keymaps() end,     desc = "Keymaps" },
     { "<leader>fs", function() require("telescope.builtin").grep_string() end, desc = "Search Selection" },
     { "<leader>fd", function() require("telescope.builtin").diagnostics() end, desc = "Diagnostics" },
   },
@@ -45,7 +45,12 @@ return {
       },
     })
     telescope.load_extension("fzf")
-    telescope.load_extension("dap")
+    
+    -- Load DAP extension if available
+    pcall(function()
+      telescope.load_extension("dap")
+    end)
+    
     -- Load project extension if available
     pcall(function()
       telescope.load_extension("projects")
