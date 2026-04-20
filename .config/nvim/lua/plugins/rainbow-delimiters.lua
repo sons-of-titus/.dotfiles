@@ -1,6 +1,6 @@
 return {
   "HiPhish/rainbow-delimiters.nvim",
-  event = { "BufReadPost", "BufNewFile" },
+  ft = { "lua", "vim", "vimdoc", "query" },
   config = function()
     local rainbow_delimiters = require("rainbow-delimiters")
     

@@ -17,13 +17,11 @@
         "~/.config/waybar/modules/audio.jsonc",
         "~/.config/waybar/modules/backlight.jsonc",
         "~/.config/waybar/modules/battery.jsonc",
-        "~/.config/waybar/modules/weather.jsonc",
-        "~/.config/waybar/modules/music.jsonc"
+        "~/.config/waybar/modules/weather.jsonc"
     ],
 
     "modules-left": [
-        "hyprland/workspaces",
-        "custom/music"
+        "hyprland/workspaces"
     ],
     "modules-center": [
         "clock"

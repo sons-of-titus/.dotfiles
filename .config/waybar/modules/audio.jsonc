@@ -1,7 +1,7 @@
 {
     "wireplumber": {
-        "format": "🔊 {volume}%",
-        "format-muted": "🔇",
+        "format": "Vol {volume}%",
+        "format-muted": "Mute",
         "on-click-right": "pavucontrol",
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "scroll-step": 5,
