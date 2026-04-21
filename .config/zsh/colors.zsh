@@ -1,0 +1,8 @@
+# Dynamic colors from wallpaper
+ZSH_COLOR_PRIMARY="#9F9F9D"
+ZSH_COLOR_BG="#453936"
+ZSH_COLOR_TERM1="#ac73ff"
+ZSH_COLOR_TERM2="#44def5"
+ZSH_COLOR_TERM3="#ffdcf2"
+ZSH_COLOR_TERM4="#99aad8"
+ZSH_COLOR_TERM5="#b49fea"

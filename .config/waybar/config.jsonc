@@ -10,6 +10,7 @@
 
     "include": [
         "~/.config/waybar/modules/workspaces.jsonc",
+        "~/.config/waybar/modules/keyboard.jsonc",
         "~/.config/waybar/modules/clock.jsonc",
         "~/.config/waybar/modules/cpu.jsonc",
         "~/.config/waybar/modules/memory.jsonc",
@@ -27,6 +28,7 @@
         "clock"
     ],
     "modules-right": [
+        "hyprland/language",
         "custom/weather",
         "group/stats",
         "wireplumber",

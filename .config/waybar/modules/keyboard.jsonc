@@ -1,0 +1,7 @@
+{
+    "hyprland/language": {
+        "format": "{short}",
+        "format-tooltip": "Keyboard: {long}",
+        "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next"
+    }
+}

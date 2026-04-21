@@ -132,17 +132,25 @@ update_waybar() {
 		# Light background - use dark text
 		local text_color="1a1a2e"
 		local muted_color="4a4a5e"
+		# Darken primary for overlay to contrast with rose text
+		local pr=$((16#${primary:0:2})) pg=$((16#${primary:2:2})) pb=$((16#${primary:4:2}))
+		local ov_r=$((pr > 40 ? pr - 40 : 0)) ov_g=$((pg > 40 ? pg - 40 : 0)) ov_b=$((pb > 40 ? pb - 40 : 0))
+		local overlay=$(printf "%02x%02x%02x" $ov_r $ov_g $ov_b)
 	else
 		# Dark background - use light text
 		local text_color="e0def4"
 		local muted_color="9a9aae"
+		# Lighten primary for overlay to contrast with rose text
+		local pr=$((16#${primary:0:2})) pg=$((16#${primary:2:2})) pb=$((16#${primary:4:2}))
+		local ov_r=$((pr < 215 ? pr + 40 : 255)) ov_g=$((pg < 215 ? pg + 40 : 255)) ov_b=$((pb < 215 ? pb + 40 : 255))
+		local overlay=$(printf "%02x%02x%02x" $ov_r $ov_g $ov_b)
 	fi
 
 	cat >"$HOME/.config/waybar/style.css" <<EOF
 /* ── Dynamic colors from wallpaper ───────────────── */
 @define-color base    #${bg};
 @define-color surface #${bg};
-@define-color overlay #${primary};
+@define-color overlay #${overlay};
 @define-color muted   #${muted_color};
 @define-color subtle  #${primary};
 @define-color text    #${text_color};
@@ -175,7 +183,7 @@ window#waybar {
     padding: 0 4px;
 }
 
-#workspaces, #clock, #group-stats, #pulseaudio, #backlight, #battery, #tray {
+#workspaces, #clock, #group-stats, #pulseaudio, #backlight, #battery, #tray, #language {
     margin: 2px 2px;
     border-radius: 0;
     padding: 0 8px;
@@ -221,7 +229,10 @@ window#waybar {
     letter-spacing: 0.3px;
 }
 
-#clock:hover { background: @overlay; color: @text; }
+#clock:hover, #language:hover, #wireplumber:hover, #backlight:hover, #battery:hover, #tray:hover {
+    background: @overlay;
+    color: @text;
+}
 
 #group-stats {
     background: alpha(@surface, 0.75);
@@ -237,7 +248,7 @@ window#waybar {
 }
 
 #cpu, #memory, #temperature, #wireplumber, #wireplumber.source, #wireplumber.sink,
-#backlight, #battery, #custom-weather {
+#backlight, #battery, #custom-weather, #language {
     color: @rose;
 }
 
@@ -252,6 +263,8 @@ window#waybar {
 }
 
 #backlight:hover { background: @overlay; }
+
+#language:hover { background: @overlay; }
 
 #battery:hover    { background: @overlay; }
 #battery.charging { color: @rose; }
@@ -282,10 +295,58 @@ EOF
 update_ghostty() {
 	local primary="$1"
 	local bg="$2"
-	mkdir -p "$HOME/.cache"
+
+	mkdir -p "/home/mourad/.cache"
 	cat >"$CACHEFILE" <<EOF
 export WALLPAPER_PRIMARY=#${primary}
 export WALLPAPER_BG=#${bg}
+EOF
+
+	source "$SCHEMEFILE" 2>/dev/null
+
+	mkdir -p "/home/mourad/.config/ghostty/colors"
+	cat >"/home/mourad/.config/ghostty/colors/dynamic.theme" <<EOF
+# Auto-generated theme from wallpaper
+background = #${bg}
+foreground = #${primary}
+
+# Cursor
+cursor-color = #${primary}
+
+# Selection
+selection-background = #${primary}
+selection-foreground = #${bg}
+
+# Terminal colors (term0-15)
+palette = 0=#${term0:-353434}
+palette = 1=#${term1:-ac73ff}
+palette = 2=#${term2:-44def5}
+palette = 3=#${term3:-ffdcf2}
+palette = 4=#${term4:-99aad8}
+palette = 5=#${term5:-b49fea}
+palette = 6=#${term6:-9dceff}
+palette = 7=#${term7:-e8d3de}
+palette = 8=#${term8:-ac9fa9}
+palette = 9=#${term9:-c093ff}
+palette = 10=#${term10:-89ecff}
+palette = 11=#${term11:-fff0f6}
+palette = 12=#${term12:-b5c1dd}
+palette = 13=#${term13:-c9b5f4}
+palette = 14=#${term14:-bae0ff}
+palette = 15=#${term15:-ffffff}
+EOF
+
+	# Generate zsh colors file
+	mkdir -p "/home/mourad/.config/zsh"
+	cat >"/home/mourad/.config/zsh/colors.zsh" <<EOF
+# Dynamic colors from wallpaper
+ZSH_COLOR_PRIMARY="#${primary}"
+ZSH_COLOR_BG="#${bg}"
+ZSH_COLOR_TERM1="#${term1:-ac73ff}"
+ZSH_COLOR_TERM2="#${term2:-44def5}"
+ZSH_COLOR_TERM3="#${term3:-ffdcf2}"
+ZSH_COLOR_TERM4="#${term4:-99aad8}"
+ZSH_COLOR_TERM5="#${term5:-b49fea}"
 EOF
 }
 

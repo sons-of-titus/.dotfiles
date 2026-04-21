@@ -1,5 +1,10 @@
 # Environment Variables
 
+# Source dynamic colors
+if [[ -f "$HOME/.config/zsh/colors.zsh" ]]; then
+  source "$HOME/.config/zsh/colors.zsh"
+fi
+
 # Qt scaling
 export QT_SCALE_FACTOR=0.8
 
@@ -47,6 +52,9 @@ done
 # Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Mise
+eval "$(mise activate zsh)"
 
 # Coursier
 export PATH="$PATH:/home/mourad/.local/share/coursier/bin"

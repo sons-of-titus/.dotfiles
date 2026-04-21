@@ -1,16 +1,16 @@
 /* ── Dynamic colors from wallpaper ───────────────── */
-@define-color base    #000500;
-@define-color surface #000500;
-@define-color overlay #B79E55;
+@define-color base    #453936;
+@define-color surface #453936;
+@define-color overlay #c7c7c5;
 @define-color muted   #9a9aae;
-@define-color subtle  #B79E55;
+@define-color subtle  #9F9F9D;
 @define-color text    #e0def4;
 @define-color love    #eb6f92;
-@define-color gold    #B79E55;
-@define-color rose    #B79E55;
-@define-color pine    #B79E55;
-@define-color foam    #B79E55;
-@define-color iris    #B79E55;
+@define-color gold    #9F9F9D;
+@define-color rose    #9F9F9D;
+@define-color pine    #9F9F9D;
+@define-color foam    #9F9F9D;
+@define-color iris    #9F9F9D;
 
 /* ── Reset ─────────────────────────────────────── */
 * {
@@ -34,7 +34,7 @@ window#waybar {
     padding: 0 4px;
 }
 
-#workspaces, #clock, #group-stats, #pulseaudio, #backlight, #battery, #tray {
+#workspaces, #clock, #group-stats, #pulseaudio, #backlight, #battery, #tray, #language {
     margin: 2px 2px;
     border-radius: 0;
     padding: 0 8px;
@@ -80,7 +80,10 @@ window#waybar {
     letter-spacing: 0.3px;
 }
 
-#clock:hover { background: @overlay; color: @text; }
+#clock:hover, #language:hover, #wireplumber:hover, #backlight:hover, #battery:hover, #tray:hover {
+    background: @overlay;
+    color: @text;
+}
 
 #group-stats {
     background: alpha(@surface, 0.75);
@@ -96,7 +99,7 @@ window#waybar {
 }
 
 #cpu, #memory, #temperature, #wireplumber, #wireplumber.source, #wireplumber.sink,
-#backlight, #battery, #custom-weather {
+#backlight, #battery, #custom-weather, #language {
     color: @rose;
 }
 
@@ -111,6 +114,8 @@ window#waybar {
 }
 
 #backlight:hover { background: @overlay; }
+
+#language:hover { background: @overlay; }
 
 #battery:hover    { background: @overlay; }
 #battery.charging { color: @rose; }
